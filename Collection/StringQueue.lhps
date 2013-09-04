@@ -1,0 +1,165 @@
+#ifndef LIB_STRINGQUEUE_LHPS
+#define LIB_STRINGQUEUE_LHPS
+#include "../IStringConversion.lhps"
+#include "../ISave.lhps"
+#include "StringList.lhps"
+
+//////////////////////////////////////////////////
+//StringQueue V1.0 - Apjjm
+//
+//A Basic Array-based Queue built using StringList
+//Supports saving/loading to local/global vars
+//////////////////////////////////////////////////
+class StringQueue : ILocalSave,IGlobalSave, IStringConversion {
+	private StringList list_;
+	
+	StringQueue() {
+		list_ = StringList();
+	}
+	
+	StringQueue(const string[]& in items) {
+		list_ = StringList();
+		list_.addAll(items);
+	}
+		
+	StringQueue(const StringList& in list) {
+		list_ = StringList();
+		list_.addAll(list);
+	}
+	
+	StringQueue(const string& in ID) {
+		list_ = StringList();
+		loadLocal(ID);
+	}
+	
+	StringQueue(const StringQueue& in queue) {
+		list_ = queue.list_;
+	}
+	
+	//////////////////////////////////////////////////
+	// To/From string / saves
+	//////////////////////////////////////////////////
+	void saveGlobal(const string& in id) const {
+		list_.saveGlobal(id);
+	}
+	
+	void saveLocal(const string& in id) const {
+		list_.saveLocal(id);
+	}
+	
+	void loadGlobal(const string& in id) {
+		list_.loadGlobal(id);
+	}
+	
+	void loadLocal(const string& in id) {
+		list_.loadLocal(id);
+	}
+	
+	string toString() const {
+		return list_.toString();
+	}
+	
+	void fromString(const string& in asString) {
+		list_.fromString(asString);
+	}
+
+	//////////////////////////////////////////////////
+	// Item Manipulation
+	//////////////////////////////////////////////////
+	int enqueue(string item) {
+		return list_.add(item);
+	}
+	
+	int enqueueAll(string[] items) {
+		return list_.addAll(items);
+	}
+	
+	int enqueueAll(StringList items) {
+		return list_.addAll(items);
+	}
+	
+	int enqueueAll(StringQueue queue) {
+		return list_.addAll(queue.list_);
+	}
+	
+	string dequeue() {
+		string item = "";
+		if(list_.count() > 0)
+		{
+			item = list_.removeAt(0);
+		}
+		return item;
+	}
+	
+	string head() const {
+		int count = list_.count();
+		string item = "";
+		if(count > 0)
+		{
+			item = list_[count-1];
+		}
+		return item;
+	}
+	
+	string tail() const {
+		string item = "";
+		if(list_.count() > 0)
+		{
+			item = list_[0];
+		}
+		return item;
+	}
+	
+	bool isEmpty() const {
+		return list_.isEmpty();
+	}
+	
+	bool contains(const string& in item) const {
+		return list_.contains(item);
+	}
+	
+	int count() const {
+		return list_.count();
+	}
+	
+	void clear() {
+		list_.clear();
+	}
+	
+	const StringList@ innerList() const {
+		return list_;
+	}
+	
+	string[] toArray() const {
+		return list_.toArray();
+	}
+
+	//////////////////////////////////////////////////
+	// Operator Overloads
+	//////////////////////////////////////////////////
+	StringQueue@ opAssign(const string[]& in rhs) {
+		clear();
+		enqueueAll(rhs);
+		return this;
+	}
+	
+	StringQueue@ opAssign(const StringList& in rhs) {
+		clear();
+		enqueueAll(rhs);
+		return this;
+	}
+	
+	bool opEquals(const StringList& in list) const {
+		return list_.opEquals(list);
+	}
+	
+	bool opEquals(const string[]& in items) const {
+		return list_.opEquals(items);
+	}
+	
+	bool opEquals(const StringQueue& in queue) const {
+		return list_.opEquals(queue.list_);
+	}
+}
+
+#endif

@@ -1,0 +1,13 @@
+#ifndef LIB_ISTRING_LHPS
+#define LIB_ISTRING_LHPS
+//////////////////////////////////////////////////
+//IStringConversion V1.0 - Apjjm
+//
+//Interface specifing to/from string conversion
+//behaviour for the implementing class
+//////////////////////////////////////////////////
+interface IStringConversion {
+	string toString() const;
+	void fromString(const string& in asString);
+}
+#endif

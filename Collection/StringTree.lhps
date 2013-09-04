@@ -1,0 +1,399 @@
+#ifndef LIB_STRINGTREE_LHPS
+#define LIB_STRINGTREE_LHPS
+#include "../IStringConversion.lhps"
+#include "../ISave.lhps"
+
+//////////////////////////////////////////////////
+//StringTree V1.0 - Apjjm
+//
+//A Basic Tree class for strings with traversal
+//Supports saving/loading to local/global vars
+//////////////////////////////////////////////////
+class StringTree : ILocalSave, IGlobalSave, IStringConversion {
+	private string sep_;
+	private string sepCH_;
+	private StringTree@[] children_;
+	private StringTree@ parent_;
+	private string value_;
+	
+	StringTree() {
+		sep_ = "\x1";
+		sepCH_ = "\x2";
+		value_ = "";
+		@parent_ = null;
+	}
+	
+	StringTree(string value) {
+		sep_ = "\x1";
+		sepCH_ = "\x2";
+		value_ = value;
+		@parent_ = null;
+	}
+	
+	~StringTree() {
+		free();
+	}
+	
+	//////////////////////////////////////////////////
+	// Tree Traversal
+	//////////////////////////////////////////////////
+	string[] traverseDepthFirst(bool preOrder) {
+		string[] data = {};
+		if(preOrder)
+		 { traverseDFS_PreOrder(data); }
+		else
+		 { traverseDFS_PostOrder(data); }
+		
+		return data;
+	}
+	
+	private void traverseDFS_PreOrder(string[]& inout data) {
+		uint i = data.length();
+		data.resize(i+1);
+		data[i] = value_;
+			
+		for(uint i=0; i<children_.length(); i++)
+			{ children_[i].traverseDFS_PreOrder(data); }
+	}
+	
+	private void traverseDFS_PostOrder(string[]& inout data) {
+		for(uint i=0; i<children_.length(); i++)
+			{ children_[i].traverseDFS_PostOrder(data); }
+			
+		uint i = data.length();
+		data.resize(i+1);
+		data[i] = value_;
+	}
+	
+	string[] traverseBreadthFirst() {
+	
+		string[] output = {};
+		StringTree@[] toVisit = { @this };
+		while(toVisit.length() > 0)
+		 {
+			//Dequeue node
+			StringTree@ node = @toVisit[0];
+			for(uint i=1; i<toVisit.length(); i++)
+				@toVisit[i-1] = @toVisit[i];
+			toVisit.resize(toVisit.length()-1);
+			
+			//Add the node to the output
+			uint index = output.length();
+			output.resize(index+1);
+			output[index] = node.value_;
+			
+			//Add the node's children to the queue
+			for(uint i=0; i<node.children_.length(); i++)
+			 {
+				uint j = toVisit.length();
+				toVisit.resize(j+1);
+				@toVisit[j] = @node.children_[i];
+			 }
+		 }
+		return output;
+	}
+	
+	//////////////////////////////////////////////////
+	// Item Manipulation
+	//////////////////////////////////////////////////
+	string getValue() const {
+		return value_;
+	}
+	
+	void setValue(string value) {
+		value_ = value;
+	}
+	
+	int addChild(string childValue) {
+		StringTree@ child = StringTree(childValue);
+		@child.parent_ = this;	
+		
+		int index = int(children_.length());
+		children_.resize(index+1);
+		@children_[index] = @child;
+		
+		return index;
+	}
+	
+	int addChild(StringTree@ child) {
+		if(@child.parent_ is null)
+		 {
+			@child.parent_ = this;
+			
+			int index = int(children_.length());
+			children_.resize(index+1);
+			@children_[index] = @child;
+			return index;
+		 }
+		else
+		 {
+			return -1;
+		 }
+	}
+	
+	StringTree@ removeChild(int index) {
+		StringTree@ item = null;
+		if(children_.length() > 0 && index < int(children_.length()))
+		{
+			item = children_[index];
+			@item.parent_ = null;
+			
+			//Shuffle items down
+			for(uint i = index; i<children_.length()-1; i++)
+				children_[i] = children_[i+1];
+				
+			//Resize list
+			children_.resize(children_.length() - 1);
+		}
+		return item;
+	}
+	
+	void removeChildren(const int[]& in index) {
+		if(index.length() > 0)
+		 {
+			uint nmoved=0;
+			for(int j = 0; j<int(children_.length()); j++)
+			 {
+				bool deleted = false;
+				for(uint k=0; k<index.length(); k++)
+				{
+					deleted = deleted || (index[k]==j);
+				}
+				
+				if(!deleted) 
+				 {
+					children_[nmoved] = children_[j];
+					nmoved++;
+				 }
+				else
+				 {
+					@children_[j].parent_ = null;
+				 }
+			 }
+			children_.resize(nmoved);
+		 }
+	}
+	
+	void removeChildren(const string& in childValue) {
+		removeChildren(findChildren(childValue));
+	}
+	
+	int[] findChildren(const string& in childValue) const {
+		int[] output = {};
+		for(int i=0; i<int(children_.length()); i++)
+		{
+			if(children_[i].value_ == childValue) {
+				uint index = output.length();
+				output.resize(index+1);
+				output[index] = i;
+			}
+		}
+		return output;
+	}
+	
+	bool hasChild(const string& in childValue) const {	
+		for(uint i=0; i<children_.length(); i++)
+		 {
+			if(children_[i].value_ == childValue)
+			{
+				return true;
+			}
+		 }
+		return false;
+	}
+	
+	bool hasChildren() const {
+		return children_.length() > 0;
+	}
+	
+	int getChildCount() const {
+		return int(children_.length());
+	}
+	
+	StringTree@[] getChildren(const string& in childValue) const {
+		
+		StringTree@[] output = {};
+		for(uint i=0; i<children_.length(); i++)
+		 {
+			if(children_[i].value_ == childValue)
+			{
+				uint index = output.length();
+				output.resize(index+1);
+				@output[index] = @children_[i];
+			}
+		 }
+		return output;
+	}
+
+	StringTree@[] getChildren() const {
+		return children_;
+	}
+	
+	StringTree@ getChild(int index) const {
+		return children_[index];
+	}
+	
+	StringTree@ getParent() const {
+		return parent_;
+	}
+	
+	void clearChildren() {
+		children_.resize(0);
+	}
+	
+	bool isRoot() const {
+		return parent_ is null;
+	}
+	
+	bool hasParent() const {
+		return !(parent_ is null);
+	}
+	
+	StringTree@[] getAncestors() const {
+		
+		StringTree@[] ancestors = {};
+		if(parent_ is null) return ancestors; //Early out for root node
+		
+		//Add Parent
+		ancestors.resize(1);
+		@ancestors[0] = @parent_;
+		
+		//Add ancestors above parent
+		StringTree@ node = @parent_;
+		while(node.hasParent())
+		 {
+			@node = @node.getParent();
+			uint index = ancestors.length();
+			ancestors.resize(index + 1);
+			@ancestors[index] = @node;
+		 }
+		return ancestors;
+	}
+	
+	void free() {
+		for(uint i=0; i<children_.length(); i++)
+		 {
+			if(!(children_[i] is null))
+				@children_[i].parent_ = null;
+		 }
+		children_.resize(0);
+		@parent_ = null;
+	}
+	
+	//////////////////////////////////////////////////
+	// To/From string / saves
+	//////////////////////////////////////////////////
+	void saveGlobal(const string& in id) const {
+		SetGlobalVarString(id,toString());
+	}
+	
+	void saveLocal(const string& in id) const {
+		SetLocalVarString(id,toString());
+	}
+	
+	void loadGlobal(const string& in id) {
+		fromString(GetGlobalVarString(id));
+	}
+	
+	void loadLocal(const string& in id) {
+		fromString(GetLocalVarString(id));
+	}
+ 
+	void fromString(const string& in asString) {
+		//Reset State
+		clearChildren();	
+		
+		//Read value part of string
+		if(asString.length() == 0) return; //Early out
+		uint vend = 0;
+		for(; vend<asString.length(); vend++) 
+		{ 
+			if(asString[vend]==sep_[0]) break; 
+		}
+		value_ = StringSub(asString,0,vend);  //Value is between start and <SEP>
+		
+		//Read children substring
+		int childDepth = 0;
+		int childStart = vend;
+		for(uint i=vend; i<asString.length(); i++)
+		{
+			//Children follow structure VAL<SEP>{CHILD}<SEPCH> recursively
+			//A leaf node is simply VAL with no <SEP> or <SEPCH>
+			if(asString[i] == sep_[0]) childDepth++;
+			else if(asString[i] == sepCH_[0]) 
+			{
+				childDepth--;
+				if(childDepth == 0)
+				{
+					//At the end of a child definition, everything before here is 1 child.
+					StringTree@ child = StringTree();
+					string value = StringSub(asString,childStart+1,i-(childStart+1)); //Copy due to amnesia ref bug in V1.2 and earlier
+					/* AddDebugMessage("SPLIT: " + childStart + "/" + i + " : " + value,false); */
+					child.fromString(value);	//Recursive Depth first child read
+					addChild(child);
+					
+					//Next child starts after <SEPCH> token
+					childStart = i+1;
+				}
+			}
+		}
+	}
+		
+	string toString() const {
+		string child ="";
+		for(uint i=0; i<children_.length(); i++)
+		 {
+			if(! (children_[i] is null) )
+			 {
+				child += sep_ + children_[i].toString() + sepCH_;
+			 }
+		 }
+		return value_ + child;
+	}
+	
+	string toStringHumanReadable() const {
+		string child ="";
+		for(uint i=0; i<children_.length(); i++)
+		 {
+			if(! (children_[i] is null) )
+			 {
+				child += "{" + children_[i].toStringHumanReadable() + "}";
+			 }
+		 }
+		return value_ + child;
+	}
+	
+	//////////////////////////////////////////////////
+	// Operator Overloads
+	//////////////////////////////////////////////////	
+	StringTree@ opAssign(const StringTree& in rhs) {
+		AddDebugMessage("Warning: StringTree::opAssign - Shallow value copy from another tree",false);
+		value_ = rhs.value_;
+		return this;
+	}
+	
+	StringTree@ opAssign(string rhs) {
+		value_ = rhs;
+		return this;
+	}
+	
+	bool opEquals(const StringTree& in rhs) const {
+		bool equals = (rhs.value_             == value_) && 
+		              (rhs.children_.length() == children_.length());
+		if(equals)
+		 {
+			for(uint i=0; i<children_.length(); i++)
+			 {
+				if(!children_[i].opEquals(rhs.children_[i]))
+					return false;
+			 }
+		 }
+		return equals;
+	}
+	
+	StringTree@ opIndex(int idx) const {
+		return children_[idx];
+	}
+ }
+
+#endif

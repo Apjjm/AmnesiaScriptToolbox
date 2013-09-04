@@ -1,0 +1,304 @@
+#ifndef LIB_STRINGLIST_LHPS
+#define LIB_STRINGLIST_LHPS
+#include "../IStringConversion.lhps"
+#include "../ISave.lhps"
+
+//////////////////////////////////////////////////
+//StringList V2.0 - Apjjm
+//
+//A Basic Array-based list class for strings
+//Supports saving/loading to local/global vars
+//////////////////////////////////////////////////
+class StringList : ILocalSave,IGlobalSave, IStringConversion {
+	
+	private string sep_;
+	private string[] list_;
+  	
+	StringList() {
+		sep_ = "\0";
+	}
+	
+	StringList(const string[]& in items) {
+		sep_ = "\0";
+		addAll(items);
+	}
+		
+	StringList(const StringList& in list) {
+		sep_ = list.sep_;
+		addAll(list);
+	}
+	
+	StringList(const string& in ID) {
+		sep_ = "\0";
+		loadLocal(ID);
+	}
+
+	//////////////////////////////////////////////////
+	// To/From string / saves
+	//////////////////////////////////////////////////
+	void saveGlobal(const string& in id) const {
+		SetGlobalVarString(id,toString(sep_));
+	}
+	
+	void saveLocal(const string& in id) const {
+		SetLocalVarString(id,toString(sep_));
+	}
+	
+	void loadGlobal(const string& in id) {
+		fromString(GetGlobalVarString(id), sep_);
+	}
+	
+	void loadLocal(const string& in id) {
+		fromString(GetLocalVarString(id), sep_);
+	}
+ 
+	void fromString(const string& in asString, const string& in seperator) {
+		list_.resize(1);
+		int s1 = int(asString.length());
+		int s2 = int(seperator.length());
+		int lastMatch = 0;
+		//Add all but final elements
+		for(int i=0; i<=s1 - s2; i++)
+		{
+			if(StringSub(asString,i,s2) == seperator) 
+			{
+				//Add element to output	  
+				list_[list_.length() - 1] = StringSub(asString,lastMatch,i-lastMatch);
+				list_.resize(list_.length() + 1);
+				//Move search along
+				i += s2; lastMatch = i;
+			}
+		}
+		//Add lastMatch -> final
+		list_[list_.length() - 1] = StringSub(asString,lastMatch,s1 - lastMatch);
+	}
+ 
+	void fromString(const string& in asString) {
+		fromString(asString,",");
+	}
+ 
+	string toString(const string& in seperator) const  {
+		string result = "";
+		for(uint i=0; i<list_.length(); i++)
+			result += list_[i] + seperator;
+		
+		result = StringSub(result,0,result.length()-1);
+		return result;
+	}
+
+	string toString() const {
+		return toString(",");
+	}
+ 
+	//////////////////////////////////////////////////
+	// Item Manipulation
+	//////////////////////////////////////////////////	
+	int count() const {
+		return int(list_.length());
+	}
+	
+	bool isEmpty() const {
+		return list_.length() == 0;
+	}
+	
+	string[] toArray() const {
+		return list_;
+	}
+ 
+	string get(int index) const {
+		return list_[index];
+	}
+  
+	int add(string item) {
+		int index = int(list_.length());
+		list_.resize(list_.length() + 1);
+		list_[index] = item;
+		return index;
+	}
+	
+	int addAll(const string[]& in items) {
+		uint start = list_.length();
+		uint end = items.length();
+		list_.resize(start + end);
+		
+		for(uint i=0;i<end;i++)
+			list_[start + i] = items[i];
+			
+		return int(start);
+	}
+	
+	int addAll(const StringList& in items) {
+		return addAll(items.list_);
+	}
+	
+	void set(int index, string item) {
+		list_[index] = item;
+	}
+	
+	void insert(int index, string item) {
+		list_.resize(list_.length() + 1);
+		
+		if(index > int(list_.length())) 
+			index = int(list_.length());
+		
+		//Shuffle items up
+		for(int i = int(list_.length()-1); i>index; i--)
+			list_[i] = list_[i-1];
+		
+		//Insert item
+		list_[index] = item;
+	}
+	
+	string removeAt(int index) {
+		string item = "";
+		if(list_.length() > 0 && index < int(list_.length()))
+		{
+			item = list_[index];
+			
+			//Shuffle items down
+			for(uint i = index; i<list_.length()-1; i++)
+				list_[i] = list_[i+1];
+				
+			//Resize list
+			list_.resize(list_.length() - 1);
+		}
+		return item;
+	}
+	
+	void removeItems(const int[]& in index) {
+		if(index.length() > 0)
+		 {
+			uint nmoved=0;
+			for(int j = 0; j<int(list_.length()); j++)
+			 {
+				bool deleted = false;
+				for(uint k=0; k<index.length(); k++)
+				{
+					deleted = deleted || (index[k]==j);
+				}
+				
+				if(!deleted) 
+				 {
+					list_[nmoved] = list_[j];
+					nmoved++;
+				 }
+			 }
+			list_.resize(nmoved);
+		 }
+	}
+	
+	void removeItems(string item) {
+		removeItems(find(item));
+	}
+	
+	int[] find(const string& in item) const {
+		int[] output = {};
+		for(uint i=0; i<list_.length(); i++)
+		{
+			if(item == list_[i])
+			 {
+				uint index = output.length();
+				output.resize(index+1);
+				output[index] = int(i);
+			 }
+		}
+		return output;
+	}
+	
+	bool contains(const string& in item) const {
+		for(uint i=0; i<list_.length(); i++)
+		{
+			if(item == list_[i]) return true;
+		}
+		return false;
+	}
+	
+	void clear() {
+		list_.resize(0);
+		//list_ = string[](0);
+	}
+	
+	void sort() {
+		quicksort(list_);
+	}
+	
+	private void quicksort(string[]& inout arr) const {
+		string[] low; string[] high;
+		
+		if(arr.length() >= 2)
+		 {
+			string pivot_value = arr[0];
+			for(uint i=1; i<arr.length(); i++)
+			{
+			 if(arr[i] < arr[0])
+			 {
+				uint j=low.length();
+				low.resize(j+1);
+				low[j] = arr[i];
+			 }
+			else
+			 {
+				uint j=high.length();
+				high.resize(j+1);
+				high[j] = arr[i];
+			 }
+			}
+			quicksort(low);
+			quicksort(high);
+			uint lowlength = low.length();
+			for(uint i=0; i<arr.length(); i++)
+			{
+				if(i<lowlength)
+					arr[i] = low[i];
+				else if(i > lowlength)
+					arr[i] = high[i-(1+lowlength)];
+				else
+					arr[i] = pivot_value;
+			}
+		 }
+	}
+		
+	//////////////////////////////////////////////////
+	// Operator Overloads
+	//////////////////////////////////////////////////	
+	StringList@ opAssign(const string[]& in rhs) {
+		clear();
+		addAll(rhs);
+		return this;
+	}
+	
+	bool opEquals(const StringList& in list) const {
+		bool equal = (list.list_.length() == list_.length());
+		if(equal)
+		 {
+			for(uint i=0; i<list_.length(); i++)
+			 {
+				equal = equal && (list_[i] == list.list_[i]);
+			 }
+		 }
+		return equal;
+	}
+	
+	bool opEquals(const string[]& in items) const {
+		bool equal = (items.length() == list_.length());
+		if(equal)
+		 {
+			for(uint i=0; i<list_.length(); i++)
+			 {
+				equal = equal && (list_[i] == items[i]);
+			 }
+		 }
+		return equal;
+	}
+	
+	string opIndex(int idx) const {
+		return list_[idx];
+	}
+    
+	void opIndex(int idx, string value) { 
+		list_[idx] = value;
+	}
+ 
+ }
+
+#endif

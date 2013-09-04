@@ -1,0 +1,158 @@
+#ifndef LIB_STRINGSTACK_LHPS
+#define LIB_STRINGSTACK_LHPS
+#include "../IStringConversion.lhps"
+#include "../ISave.lhps"
+#include "StringList.lhps"
+
+//////////////////////////////////////////////////
+//StringStack V1.0 - Apjjm
+//
+//A Basic Array-based stack built using StringList
+//Supports saving/loading to local/global vars
+//////////////////////////////////////////////////
+class StringStack : ILocalSave,IGlobalSave, IStringConversion {
+	private StringList list_;
+	
+	StringStack() {
+		list_ = StringList();
+	}
+	
+	StringStack(const string[]& in items) {
+		list_ = StringList();
+		list_.addAll(items);
+	}
+		
+	StringStack(const StringList& in list) {
+		list_ = StringList();
+		list_.addAll(list);
+	}
+
+	StringStack(const string& in ID) {
+		list_ = StringList();
+		loadLocal(ID);
+	}
+	
+	StringStack(const StringStack& in stack) {
+		list_ = stack.list_;
+	}
+	
+	//////////////////////////////////////////////////
+	// To/From string / saves
+	//////////////////////////////////////////////////
+	
+	void saveGlobal(const string& in id) const {
+		list_.saveGlobal(id);
+	}
+	
+	void saveLocal(const string& in id) const {
+		list_.saveLocal(id);
+	}
+	
+	void loadGlobal(const string& in id) {
+		list_.loadGlobal(id);
+	}
+	
+	void loadLocal(const string& in id) {
+		list_.loadLocal(id);
+	}
+	
+	string toString() const {
+		return list_.toString();
+	}
+	
+	void fromString(const string& in asString) {
+		list_.fromString(asString);
+	}
+
+	//////////////////////////////////////////////////
+	// Item Manipulation
+	//////////////////////////////////////////////////
+	int push(string item) {
+		return list_.add(item);
+	}
+	
+	int pushAll(string[] items) {
+		return list_.addAll(items);
+	}
+	
+	int pushAll(StringList items) {
+		return list_.addAll(items);
+	}
+	
+	int pushAll(StringStack stack) {
+		return list_.addAll(stack.list_);
+	}
+	
+	string pop() {
+		int count = list_.count();
+		string item = "";
+		if(count > 0)
+		{
+			item = list_.removeAt(count-1);
+		}
+		return item;
+	}
+	
+	string peek() const {
+		int count = list_.count();
+		string item = "";
+		if(count > 0)
+		{
+			item = list_[count-1];
+		}
+		return item;
+	}
+	
+	int count() const {
+		return list_.count();
+	}
+	
+	bool isEmpty() const {
+		return list_.isEmpty();
+	}
+	
+	bool contains(const string& in item) const {
+		return list_.contains(item);
+	}
+	
+	void clear() {
+		list_.clear();
+	}
+	
+	const StringList@ innerList() const {
+		return list_;
+	}
+	
+	string[] toArray() const {
+		return list_.toArray();
+	}
+
+	//////////////////////////////////////////////////
+	// Operator Overloads
+	//////////////////////////////////////////////////
+	StringStack@ opAssign(const string[]& in rhs) {
+		clear();
+		pushAll(rhs);
+		return this;
+	}
+	
+	StringStack@ opAssign(const StringList& in rhs) {
+		clear();
+		pushAll(rhs);
+		return this;
+	}
+	
+	bool opEquals(const StringList& in list) const {
+		return list_.opEquals(list);
+	}
+	
+	bool opEquals(const string[]& in items) const {
+		return list_.opEquals(items);
+	}
+	
+	bool opEquals(const StringStack& in stack) const {
+		return list_.opEquals(stack.list_);
+	}
+}
+
+#endif

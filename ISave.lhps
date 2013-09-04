@@ -1,0 +1,25 @@
+#ifndef LIB_ISAVE_LHPS
+#define LIB_ISAVE_LHPS
+//////////////////////////////////////////////////
+//ILocalSave V1.0 - Apjjm
+//
+//Interface specifing SetLocalVar/GetLocalVarFloat
+//behaviour for a class so it persists across saves
+//////////////////////////////////////////////////
+interface ILocalSave {
+	void saveLocal(const string& in id) const;
+	void loadLocal(const string& in id);
+}
+
+//////////////////////////////////////////////////
+//IGlobalSave V1.0 - Apjjm
+//
+//Interface specifing SetGlobalVar/GetGlobalVar
+//behaviour for a class so it persists across maps
+//////////////////////////////////////////////////
+interface IGlobalSave {
+	void saveGlobal(const string& in id) const;
+	void loadGlobal(const string& in id);
+}
+
+#endif
