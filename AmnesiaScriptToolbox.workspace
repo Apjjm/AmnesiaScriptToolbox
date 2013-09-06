@@ -1,0 +1,16 @@
+<NotepadPlus>
+    <Project name="AmnesiaScriptToolbox">
+        <File name="ISave.lhps" />
+        <File name="IStringConversion.lhps" />
+        <File name="UniqueGenerator.lhps" />
+        <Folder name="Collection">
+            <File name="Collection\StringList.lhps" />
+            <File name="Collection\StringQueue.lhps" />
+            <File name="Collection\StringStack.lhps" />
+            <File name="Collection\StringTree.lhps" />
+        </Folder>
+        <Folder name="Math">
+            <File name="Math\Vector3.lhps" />
+        </Folder>
+    </Project>
+</NotepadPlus>
