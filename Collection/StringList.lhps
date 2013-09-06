@@ -53,6 +53,13 @@ class StringList : ILocalSave,IGlobalSave, IStringConversion {
 	}
  
 	void fromString(const string& in asString, const string& in seperator) {
+		//Empty String Early out
+		if(asString.length() == 0)
+		 {
+			list_.resize(0);
+			return;
+		 }
+		
 		list_.resize(1);
 		int s1 = int(asString.length());
 		int s2 = int(seperator.length());
