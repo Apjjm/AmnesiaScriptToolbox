@@ -3,7 +3,12 @@
 #include "../ISave.lhps"
 #include "../IStringConversion.lhps"
 
-
+//////////////////////////////////////////////////
+//Vec3 V2.0 - Apjjm
+//
+//A 3D Vector implementation
+//Supports saving/loading to local/global vars
+//////////////////////////////////////////////////
 class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 
 	float x;
@@ -164,6 +169,30 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 		z -= rhs[2]; 
 	}
    
+	void opAddAssign(const float rhs) { 
+		x += rhs; 
+		y += rhs;
+		z += rhs; 
+	}
+	
+	void opSubAssign(const float rhs) { 
+		x -= rhs; 
+		y -= rhs;
+		z -= rhs; 
+	}
+   
+	void opAddAssign(const int rhs) { 
+		x += rhs; 
+		y += rhs;
+		z += rhs; 
+	}
+	
+	void opSubAssign(const int rhs) { 
+		x -= rhs; 
+		y -= rhs;
+		z -= rhs; 
+	}
+	
 	// Math operators
 	Vec3 opAdd(const Vec3 &in rhs) const { 
 		return Vec3(x+rhs.x,y+rhs.y,z+rhs.z);
@@ -174,6 +203,10 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 
 	Vec3 opAdd(const int n) const { 
+		return Vec3(x+n,y+n,z+n); 
+	}
+   
+	Vec3 opAdd(const float n) const { 
 		return Vec3(x+n,y+n,z+n); 
 	}
    
@@ -188,7 +221,11 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	Vec3 opSub(const int n) const { 
 		return Vec3(x-n,y-n,z-n); 
 	}
-	   
+	
+	Vec3 opSub(const float n) const { 
+		return Vec3(x-n,y-n,z-n); 
+	}
+	
 	///Multiplication & Dot Product 
 	float opMul(const Vec3 &in rhs) const { 
 		return (x*rhs.x) + (y*rhs.y) + (z*rhs.z);
