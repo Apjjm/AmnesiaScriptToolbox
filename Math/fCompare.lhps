@@ -1,0 +1,12 @@
+#ifndef LIB_FCOMPARE_LHPS
+#define LIB_FCOMPARE_LHPS
+
+bool fCompare(float lhs, float rhs, float epsilon) {
+	return (lhs < (rhs + epsilon)) && (lhs > (rhs - epsilon));
+}
+
+bool fCompare(float lhs, float rhs) {
+	return (lhs < (rhs + 0.01f)) && (lhs > (rhs - 0.01f));
+}
+
+#endif

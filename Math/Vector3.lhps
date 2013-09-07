@@ -2,6 +2,7 @@
 #define LIB_VECTOR3_LHPS
 #include "../ISave.lhps"
 #include "../IStringConversion.lhps"
+#include "fCompare.lhps"
 
 //////////////////////////////////////////////////
 //Vec3 V2.0 - Apjjm
@@ -120,7 +121,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 		
 		if(n < epsilon) return Vec3();
 		
-		while(n > (1.0f + epsilon) || n < (1.0f - epsilon) )
+		while(!fCompare(n,1.0f,epsilon))
 		{
 			output = Vec3(output.x / n, output.y / n, output.z / n);
 			n = output.length();
@@ -134,14 +135,14 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	//////////////////////////////////////////////////
 	// Equality operator
 	bool opEquals(const Vec3& in rhs) const { 
-		return (x == rhs.x) && (y == rhs.y) && (z == rhs.z);
+		return fCompare(x,rhs.x) && fCompare(y,rhs.y) && fCompare(z,rhs.z);
 	}
    
 	bool opEquals(const float[]& in rhs) const {
 		if(rhs.length() != 3) 
 			return false;
 		else
-			return (x == rhs[0]) && (y == rhs[1]) && (z == rhs[2]);
+			return fCompare(x,rhs[0]) && fCompare(y,rhs[1]) && fCompare(z,rhs[2]);
 	}
    
 	// Compound assignment operators
