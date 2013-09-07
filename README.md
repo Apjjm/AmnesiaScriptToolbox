@@ -9,5 +9,7 @@ Limitations in scripts
 Cannot use the following due to limitations in Amnesia's version of Angelscript:
 
 Classes: Static methods/members, private non-void return type functions, const members inside class
+
 Callbacks: Callbacks to Amnesia scripts must be in global scope
-Function pointers: No way to save / restore state on save/load occurance
+
+Function pointers: No way to save / restore state on save/load occurance.
