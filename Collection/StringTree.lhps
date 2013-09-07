@@ -10,22 +10,16 @@
 //Supports saving/loading to local/global vars
 //////////////////////////////////////////////////
 class StringTree : ILocalSave, IGlobalSave, IStringConversion {
-	private string sep_;
-	private string sepCH_;
 	private StringTree@[] children_;
 	private StringTree@ parent_;
 	private string value_;
 	
 	StringTree() {
-		sep_ = "\x1";
-		sepCH_ = "\x2";
 		value_ = "";
 		@parent_ = null;
 	}
 	
 	StringTree(string value) {
-		sep_ = "\x1";
-		sepCH_ = "\x2";
 		value_ = value;
 		@parent_ = null;
 	}
@@ -284,43 +278,45 @@ class StringTree : ILocalSave, IGlobalSave, IStringConversion {
 	// To/From string / saves
 	//////////////////////////////////////////////////
 	void saveGlobal(const string& in id) const {
-		SetGlobalVarString(id,toString());
+		SetGlobalVarString(id,toString("\x1","\x2"));
 	}
 	
 	void saveLocal(const string& in id) const {
-		SetLocalVarString(id,toString());
+		SetLocalVarString(id,toString("\x1","\x2"));
 	}
 	
 	void loadGlobal(const string& in id) {
-		fromString(GetGlobalVarString(id));
+		string vs = GetGlobalVarString(id);
+		fromString(vs,"\x1","\x2");
 	}
 	
 	void loadLocal(const string& in id) {
-		fromString(GetLocalVarString(id));
+		string vs = GetLocalVarString(id);
+		fromString(vs,"\x1","\x2");
 	}
  
-	void fromString(const string& in asString) {
+	void fromString(const string& in asString, const string &in sepSt, const string &in sepEd) {
 		//Reset State
 		clearChildren();	
-		
+
 		//Read value part of string
 		if(asString.length() == 0) return; //Early out
 		uint vend = 0;
 		for(; vend<asString.length(); vend++) 
 		{ 
-			if(asString[vend]==sep_[0]) break; 
+			if(asString[vend]==sepSt[0]) break; 
 		}
-		value_ = StringSub(asString,0,vend);  //Value is between start and <SEP>
+		value_ = StringSub(asString,0,vend);  //Value is between start and <sepSt>
 		
 		//Read children substring
 		int childDepth = 0;
 		int childStart = vend;
 		for(uint i=vend; i<asString.length(); i++)
 		{
-			//Children follow structure VAL<SEP>{CHILD}<SEPCH> recursively
-			//A leaf node is simply VAL with no <SEP> or <SEPCH>
-			if(asString[i] == sep_[0]) childDepth++;
-			else if(asString[i] == sepCH_[0]) 
+			//Children follow structure VAL<sepSt>{CHILD}<sepEd> recursively
+			//A leaf node is simply VAL with no <sepSt> or <sepEd>
+			if(asString[i] == sepSt[0]) childDepth++;
+			else if(asString[i] == sepEd[0]) 
 			{
 				childDepth--;
 				if(childDepth == 0)
@@ -328,8 +324,8 @@ class StringTree : ILocalSave, IGlobalSave, IStringConversion {
 					//At the end of a child definition, everything before here is 1 child.
 					StringTree@ child = StringTree();
 					string value = StringSub(asString,childStart+1,i-(childStart+1)); //Copy due to amnesia ref bug in V1.2 and earlier
-					/* AddDebugMessage("SPLIT: " + childStart + "/" + i + " : " + value,false); */
-					child.fromString(value);	//Recursive Depth first child read
+					/*AddDebugMessage("SPLIT: " + childStart + "/" + i + " : " + value,false);*/
+					child.fromString(value,sepSt,sepEd); //Recursive Depth first child read
 					addChild(child);
 					
 					//Next child starts after <SEPCH> token
@@ -338,29 +334,25 @@ class StringTree : ILocalSave, IGlobalSave, IStringConversion {
 			}
 		}
 	}
-		
-	string toString() const {
+	
+	void fromString(const string& in asString) {
+		fromString(asString,"{","}");
+	}
+	
+	string toString(const string &in sepSt, const string &in sepEd) const {
 		string child ="";
 		for(uint i=0; i<children_.length(); i++)
 		 {
 			if(! (children_[i] is null) )
 			 {
-				child += sep_ + children_[i].toString() + sepCH_;
+				child += sepSt + children_[i].toString(sepSt,sepEd) + sepEd;
 			 }
 		 }
 		return value_ + child;
 	}
 	
-	string toStringHumanReadable() const {
-		string child ="";
-		for(uint i=0; i<children_.length(); i++)
-		 {
-			if(! (children_[i] is null) )
-			 {
-				child += "{" + children_[i].toStringHumanReadable() + "}";
-			 }
-		 }
-		return value_ + child;
+	string toString() const {
+		return toString("{","}");
 	}
 	
 	//////////////////////////////////////////////////

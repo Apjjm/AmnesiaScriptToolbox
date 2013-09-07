@@ -10,26 +10,20 @@
 //Supports saving/loading to local/global vars
 //////////////////////////////////////////////////
 class StringList : ILocalSave,IGlobalSave, IStringConversion {
-	
-	private string sep_;
 	private string[] list_;
   	
 	StringList() {
-		sep_ = "\0";
 	}
 	
 	StringList(const string[]& in items) {
-		sep_ = "\0";
 		addAll(items);
 	}
 		
 	StringList(const StringList& in list) {
-		sep_ = list.sep_;
 		addAll(list);
 	}
 	
 	StringList(const string& in ID) {
-		sep_ = "\0";
 		loadLocal(ID);
 	}
 
@@ -37,19 +31,19 @@ class StringList : ILocalSave,IGlobalSave, IStringConversion {
 	// To/From string / saves
 	//////////////////////////////////////////////////
 	void saveGlobal(const string& in id) const {
-		SetGlobalVarString(id,toString(sep_));
+		SetGlobalVarString(id,toString("\0"));
 	}
 	
 	void saveLocal(const string& in id) const {
-		SetLocalVarString(id,toString(sep_));
+		SetLocalVarString(id,toString("\0"));
 	}
 	
 	void loadGlobal(const string& in id) {
-		fromString(GetGlobalVarString(id), sep_);
+		fromString(GetGlobalVarString(id), "\0");
 	}
 	
 	void loadLocal(const string& in id) {
-		fromString(GetLocalVarString(id), sep_);
+		fromString(GetLocalVarString(id), "\0");
 	}
  
 	void fromString(const string& in asString, const string& in seperator) {
