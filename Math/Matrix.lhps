@@ -1,0 +1,54 @@
+#ifndef LIB_MATRIX4_LHPS
+#define LIB_MATRIX4_LHPS
+#include "../ISave.lhps"
+#include "../IStringConversion.lhps"
+#include "fCompare.lhps"
+
+
+class Matrix : ILocalSave, IGlobalSave, IStringConversion {
+
+	//Matrix m[rows][cols]
+	private float[] m;
+	
+	Matrix() {
+		m = float[](9);
+	}
+	
+	Matrix(const Matrix& in matrix) {
+		m = matrix.m;
+	}
+
+	/* Todo: Matrix from array ctors */
+	
+	void zero() {
+		m = float[](9);
+	}
+	
+	void identity() {
+		m[0]=1; m[1]=0; m[2]=0;
+		m[3]=0; m[4]=1; m[5]=0;
+		m[6]=0; m[7]=0; m[8]=1;
+	}
+
+	float[] getRow(int rowIndex) const {
+		float[] r = { m[3*rowIndex], m[3*rowIndex+1],m[3*rowIndex+2] }
+		return r;
+	}
+	
+	float[] getCol(int colIndex) const {
+		float[] c = { m[colIndex], m[colIndex+3],m[colIndex+6] };
+		return c;
+	}
+	
+	Matrix getTranspose() const {
+		Matrix o;
+		o.m[0] = m[0]; o.m[1] = m[3]; o.m[2] = m[6];
+		o.m[3] = m[1]; o.m[4] = m[4]; o.m[5] = m[7];
+		o.m[6] = m[2]; o.m[7] = m[5]; o.m[8] = m[8];
+		return o;
+	}
+	
+	/* todo: Matrix operators, inverse, det, mutators etc etc*/
+}
+
+#endif

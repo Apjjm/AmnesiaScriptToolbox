@@ -12,6 +12,7 @@
         <Folder name="Math">
             <File name="Math\Vector3.lhps" />
             <File name="Math\fCompare.lhps" />
+            <File name="Math\Matrix.lhps" />
         </Folder>
     </Project>
 </NotepadPlus>
