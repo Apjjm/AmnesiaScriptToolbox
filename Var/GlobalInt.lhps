@@ -169,6 +169,14 @@ class GlobalInt : IStringConversion, AmnesiaVar
         return this;
     }
 
+    // Append string to varName
+    GlobalInt@ opAddAssign(const string& in other)
+    {
+        varName += other;
+        uploadValue();
+        return this;
+    }
+
     // int - GlobalInt
     int opSub_r(int other) const
     {
