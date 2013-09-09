@@ -1,12 +1,15 @@
 #ifndef LIB_FCOMPARE_LHPS
 #define LIB_FCOMPARE_LHPS
 
+const float FCOMPARE_EPSILON_DEFAULT = 0.001f;
 bool fCompare(float lhs, float rhs, float epsilon) {
-	return (lhs < (rhs + epsilon)) && (lhs > (rhs - epsilon));
+	return (lhs < (rhs + epsilon))
+       	&& (lhs > (rhs - epsilon));
 }
 
 bool fCompare(float lhs, float rhs) {
-	return (lhs < (rhs + 0.01f)) && (lhs > (rhs - 0.01f));
+	return (lhs < (rhs + FCOMPARE_EPSILON_DEFAULT)) 
+	    && (lhs > (rhs - FCOMPARE_EPSILON_DEFAULT));
 }
 
 #endif
