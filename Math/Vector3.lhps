@@ -3,6 +3,7 @@
 #include "../ISave.lhps"
 #include "../IStringConversion.lhps"
 #include "fCompare.lhps"
+#include "Matrix.lhps"
 
 //////////////////////////////////////////////////
 //Vec3 V2.0 - Apjjm
@@ -30,9 +31,13 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	Vec3(float[] vector) {
-		x = vector[0];
-		y = vector[1];
-		z = vector[2];
+		if(vector.length() == 3)
+		 {
+			x = vector[0];
+			y = vector[1];
+			z = vector[2];
+		 }
+		else AddDebugMessage("Vec3::Ctor(float[]) Invalid vector size",false);
 	}
 	
 	Vec3(const Vec3 &in vector) {
@@ -85,7 +90,11 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	float dot(const float[]& in vector) const {
-		return x * vector[0] + y * vector[1] + z * vector[2];
+		if(vector.length() == 3)
+			return x * vector[0] + y * vector[1] + z * vector[2];
+		
+		AddDebugMessage("Vec3::dot(float[]) Invalid vector size",false);
+		return 0.0f;
 	}
 	
 	Vec3 cross(const Vec3& in vector) const {
@@ -95,9 +104,13 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	Vec3 cross(const float[]& in vector) const {
-		return Vec3( y*vector[2] - vector[1]*z,
-		             z*vector[0] - vector[2]*x,
-		             x*vector[1] - vector[0]*y );
+		if(vector.length() == 3)
+			return Vec3( y*vector[2] - vector[1]*z,
+						 z*vector[0] - vector[2]*x,
+						 x*vector[1] - vector[0]*y );
+		
+		AddDebugMessage("Vec3::cross(float[]) Invalid vector size",false);
+		return this;
 	}
 	
 	float length() const {
@@ -133,7 +146,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	//////////////////////////////////////////////////
 	// Operator overloads
 	//////////////////////////////////////////////////
-	// Equality operator
+	// Equality operator & Assign
 	bool opEquals(const Vec3& in rhs) const { 
 		return fCompare(x,rhs.x) && fCompare(y,rhs.y) && fCompare(z,rhs.z);
 	}
@@ -145,53 +158,129 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 			return fCompare(x,rhs[0]) && fCompare(y,rhs[1]) && fCompare(z,rhs[2]);
 	}
    
+    /* Vec3@ opAssign(const Vec3& in rhs) is bitwise copy by default */
+   
+	Vec3@ opAssign(const float[]& in rhs) {
+		if(rhs.length() == 3)
+		 {
+			x = rhs[0];
+			y = rhs[1];
+			z = rhs[2];
+		 }
+		else 
+		 {
+			AddDebugMessage("Err: Vec3::opAssign(float[]) - Invalid vector size",false);
+		 }
+		return this;
+	}
+   
 	// Compound assignment operators
-	void opAddAssign(const Vec3 &in rhs) { 
+	Vec3@ opAddAssign(const Vec3 &in rhs) { 
 		x += rhs.x; 
 		y += rhs.y;
-		z += rhs.z; 
+		z += rhs.z;
+		return this;
 	}
 	
-	void opSubAssign(const Vec3 &in rhs) { 
+	Vec3@ opSubAssign(const Vec3 &in rhs) { 
 		x -= rhs.x; 
 		y -= rhs.y;
-		z -= rhs.z; 
+		z -= rhs.z;
+		return this;
 	}
 	
-	void opAddAssign(const float[] &in rhs) { 
-		x += rhs[0]; 
-		y += rhs[1];
-		z += rhs[2]; 
+	Vec3@ opAddAssign(const float[] &in rhs) { 
+		if(rhs.length() == 3)
+		{
+			x += rhs[0]; 
+			y += rhs[1];
+			z += rhs[2];
+		}
+		else 
+		 {
+			AddDebugMessage("Err: Vec3::opAddAssign(float[]) - Invalid vector size",false);
+		 }
+		return this;
 	}
 	
-	void opSubAssign(const float[] &in rhs) { 
-		x -= rhs[0]; 
-		y -= rhs[1];
-		z -= rhs[2]; 
+	Vec3@ opSubAssign(const float[] &in rhs) { 
+		if(rhs.length() == 3)
+		{
+			x -= rhs[0]; 
+			y -= rhs[1];
+			z -= rhs[2]; 
+		}
+		else 
+		 {
+			AddDebugMessage("Err: Vec3::opAssign(float[]) - Invalid vector size",false);
+		 }
+		return this;
 	}
    
-	void opAddAssign(const float rhs) { 
+	Vec3@ opAddAssign(const float rhs) { 
 		x += rhs; 
 		y += rhs;
-		z += rhs; 
+		z += rhs;
+		return this;
 	}
 	
-	void opSubAssign(const float rhs) { 
+	Vec3@ opSubAssign(const float rhs) { 
 		x -= rhs; 
 		y -= rhs;
-		z -= rhs; 
+		z -= rhs;
+		return this;		
 	}
    
-	void opAddAssign(const int rhs) { 
+	Vec3@ opAddAssign(const int rhs) { 
 		x += rhs; 
 		y += rhs;
-		z += rhs; 
+		z += rhs;
+		return this;
 	}
 	
-	void opSubAssign(const int rhs) { 
+	Vec3@ opSubAssign(const int rhs) { 
 		x -= rhs; 
 		y -= rhs;
-		z -= rhs; 
+		z -= rhs;
+		return this;
+	}
+	
+	Vec3@ opMulAssign(const float rhs) { 
+		x *= rhs; 
+		y *= rhs;
+		z *= rhs;
+		return this;
+	}
+	
+	Vec3@ opDivAssign(const float rhs) { 
+		x /= rhs; 
+		y /= rhs;
+		z /= rhs;
+		return this;		
+	}
+   
+	Vec3@ opMulAssign(const int rhs) { 
+		x += rhs; 
+		y += rhs;
+		z += rhs;
+		return this;
+	}
+	
+	Vec3@ opDivAssign(const int rhs) { 
+		x /= float(rhs); 
+		y /= float(rhs);
+		z /= float(rhs);
+		return this;		
+	}
+	
+	Vec3@ opMulAssign(const Matrix& in matrix) {
+		float[] m = matrix.toArray();
+		float xn = m[0]*x + m[1]*y + m[2]*z;
+		float yn = m[3]*x + m[4]*y + m[5]*z;
+		z = m[6]*x + m[7]*y + m[8]*z;
+		y = yn;
+		x = xn;
+		return this;
 	}
 	
 	// Math operators
@@ -200,7 +289,11 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	Vec3 opAdd(const float[] &in rhs) const { 
-		return Vec3(x+rhs[0],y+rhs[1],z+rhs[2]);
+		if(rhs.length() == 3)
+			return Vec3(x+rhs[0],y+rhs[1],z+rhs[2]);
+		
+		AddDebugMessage("Err: Vec3::opAdd(float[]) - Invalid vector size",false);
+		return this;
 	}
 
 	Vec3 opAdd(const int n) const { 
@@ -216,7 +309,11 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	Vec3 opSub(const float[] &in rhs) const { 
-		return Vec3(x-rhs[0],y-rhs[1],z-rhs[2]);
+		if(rhs.length() == 3)
+			return Vec3(x-rhs[0],y-rhs[1],z-rhs[2]);
+		
+		AddDebugMessage("Err: Vec3::opSub(float[]) - Invalid vector size",false);
+		return this;
 	}
 
 	Vec3 opSub(const int n) const { 
@@ -232,8 +329,12 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 		return (x*rhs.x) + (y*rhs.y) + (z*rhs.z);
 	}
 	
-	float opMul(const float[] &in rhs) const { 
-		return (x*rhs[0]) + (y*rhs[1]) + (z*rhs[2]);
+	float opMul(const float[] &in rhs) const {
+		if(rhs.length() == 3)
+			return (x*rhs[0]) + (y*rhs[1]) + (z*rhs[2]);
+		
+		AddDebugMessage("Err: Vec3::opMul(float[]) - Invalid vector size",false);
+		return 0.0f;
 	}
 	
 	Vec3 opMul(const float n) const { 
@@ -252,9 +353,13 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 
 	Vec3 opXor(const float[] &in rhs) const { 
-		return Vec3( y*rhs[2] - rhs[1]*z,
+		if(rhs.length() == 3)
+			return Vec3( y*rhs[2] - rhs[1]*z,
 		             z*rhs[0] - rhs[2]*x,
 		             x*rhs[1] - rhs[0]*y );
+		
+		AddDebugMessage("Err: Vec3::opXor(float[]) - Invalid vector size",false);
+		return this;
 	}
 	
 	//Division
@@ -276,8 +381,27 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 				return y;
 			case 2:
 				return z;
+			default:
+				AddDebugMessage("Err: Vec3::OpIndex() - Index out of bounds",false);
 		}
 		return 0.0f;
+	}
+	
+	void opIndex(uint index, int value) {
+		switch(index)
+		{
+			case 0:
+				x = float(value);
+				return;
+			case 1:
+				y = float(value);
+				return;
+			case 2:
+				z = float(value);
+				return;
+			default:
+				AddDebugMessage("Err: Vec3::OpIndex() - Index out of bounds",false);
+		}
 	}
 	
 	void opIndex(uint index, float value) {
@@ -292,6 +416,8 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 			case 2:
 				z = value;
 				return;
+			default:
+				AddDebugMessage("Err: Vec3::OpIndex() - Index out of bounds",false);
 		}
 	}
 }
