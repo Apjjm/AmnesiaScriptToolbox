@@ -1,0 +1,195 @@
+#ifndef LIB_GLOBALINT_LHPS
+#define LIB_GLOBALINT_LHPS
+
+#include "../IStringConversion.lhps"
+#include "../Math/fCompare.lhps"
+#include "AmnesiaVar.lhps"
+
+/**
+ * Wrapper class for GlobalVarInt variables stored using the Amnesia script
+ * functions. Behaves like a normal int using a standard operator set for
+ * manipulating the data.
+ *
+ * Do not modify the global variable manually. This can cause unwanted
+ * behavior since the value of the variables is cached to prevent repeated
+ * calls to the Amnesia script functions.
+ *
+ * Assigning GlobalInt to primitives is not supported, since global operators
+ * for Angelscript can only be implemented in native code (as far as I know).
+ * However, GlobalInt supports assignment of primitives such as ints, floats
+ * and even strings (for changing the variable name stored by Amnesia)
+ **/
+class GlobalInt : IStringConversion, AmnesiaVar
+{
+    private int val; // Cache value
+
+    // Store Amnesia var into a cache variable
+    private void downloadValue()
+    {
+        val = GetGlobalVarInt(varName);
+    }
+
+    // Upload val in Amnesia variable
+    private void uploadValue()
+    {
+        SetGlobalVarInt(varName, val);
+    }
+
+    /////////////////////////////////////
+    // Public methods
+    /////////////////////////////////////
+
+    GlobalInt(string name)
+    {
+        this = name;
+        downloadValue();
+    }
+
+    string toString() const
+    {
+        return "GlobalInt \"" + varName + "\":" + val;
+    }
+
+    void fromString(const string& in asString)
+    {
+        /* Todo: Wait to confirm number parsing in script update instead of rolling own */
+    }
+
+    /////////////////////////////////////
+    // == operator overloads
+    /////////////////////////////////////
+
+    // Equals another GlobalInt
+    // Only checks the variable value, does not compare varName
+    bool opEquals(const GlobalInt& in other) const
+    {
+        return val == other.val;
+    }
+
+    // Equals an int
+    bool opEquals(int other) const
+    {
+        AddDebugMessage("opEquals int instance", false);
+        return val == other;
+    }
+
+    // Check varName equals string
+    bool opEquals(const string& in other) const
+    {
+        AddDebugMessage("opEquals string instance", false);
+        return varName == other;
+    }
+
+    bool opEquals(float other) const
+    {
+        return fCompare(other, val);
+    }
+
+    /////////////////////////////////////
+    // = operator overloads
+    /////////////////////////////////////
+
+    // Assign GlobalInt value
+    GlobalInt@ opAssign(const GlobalInt& in other)
+    {
+        val = other.val;
+        uploadValue();
+        return this;
+    }
+
+    // Assign int value
+    GlobalInt@ opAssign(int other)
+    {
+        val = other;
+        uploadValue();
+        return this;
+    }
+
+    // Assign string to varName
+    GlobalInt@ opAssign(const string& in other)
+    {
+        varName = other;
+        uploadValue();
+        return this;
+    }
+
+    // Assign a float value
+    GlobalInt@ opAssign(float other)
+    {
+        val = int(other);
+        uploadValue();
+        return this;
+    }
+
+    /////////////////////////////////////
+    // Binary operator overloads
+    /////////////////////////////////////
+
+    // string + GlobalInt
+    // Return string other + varName
+    string opAdd_r(const string& in other) const
+    {
+        return other + varName;
+    }
+
+    // GlobalInt + string
+    // Return string other + varName
+    string opAdd(const string& in other) const
+    {
+        return other + varName;
+    }
+
+    // += other GlobalInt
+    GlobalInt@ opAddAssign(const GlobalInt& in other)
+    {
+        val += other.val;
+        uploadValue();
+        return this;
+    }
+
+    // += an int
+    GlobalInt@ opAddAssign(int other)
+    {
+        val += other;
+        uploadValue();
+        return this;
+    }
+
+    // += a float
+    GlobalInt@ opAddAssign(float other)
+    {
+        val += int(other);
+        uploadValue();
+        return this;
+    }
+
+    // -= other GlobalInt
+    GlobalInt@ opSubtractAssign(const GlobalInt& in other)
+    {
+        val -= other.val;
+        uploadValue();
+        return this;
+    }
+
+    // -= an int
+    GlobalInt@ opSubtractAssign(int other)
+    {
+        val -= other;
+        uploadValue();
+        return this;
+    }
+
+    // -= a float
+    GlobalInt@ opSubtractAssign(float other)
+    {
+        val -= int(other);
+        uploadValue();
+        return this;
+    }
+}
+
+class GlobalInt32 : GlobalInt
+{
+}
+
+#endif // LIB_GLOBALINT_LHPS
