@@ -169,6 +169,30 @@ class GlobalInt : IStringConversion, AmnesiaVar
         return this;
     }
 
+    // int - GlobalInt
+    int opSub_r(int other) const
+    {
+        return other - val;
+    }
+
+    // GlobalInt - GlobalInt
+    int opSub(const GlobalInt& in other) const
+    {
+        return val - other.val;
+    }
+
+    // float - GlobalInt
+    int opSub_r(float other) const
+    {
+        return int(other) - val;
+    }
+
+    // GlobalInt - float
+    int opSub(float other) const
+    {
+        return val - int(other);
+    }
+
     // -= other GlobalInt
     GlobalInt@ opSubAssign(const GlobalInt& in other)
     {
