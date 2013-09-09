@@ -152,10 +152,10 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
    
 	bool opEquals(const float[]& in rhs) const {
-		if(rhs.length() != 3) 
-			return false;
-		else
+		if(rhs.length() == 3) 
 			return fCompare(x,rhs[0]) && fCompare(y,rhs[1]) && fCompare(z,rhs[2]);
+		else
+			return false;
 	}
    
     /* Vec3@ opAssign(const Vec3& in rhs) is bitwise copy by default */
