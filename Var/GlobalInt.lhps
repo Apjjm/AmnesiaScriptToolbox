@@ -161,7 +161,7 @@ class GlobalInt : IStringConversion, AmnesiaVar
         val += int(other);
         uploadValue();
         return this;
-    }    
+    }
 
     // -= other GlobalInt
     GlobalInt@ opSubAssign(const GlobalInt& in other)
