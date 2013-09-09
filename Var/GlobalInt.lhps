@@ -161,10 +161,10 @@ class GlobalInt : IStringConversion, AmnesiaVar
         val += int(other);
         uploadValue();
         return this;
-    }
+    }    
 
     // -= other GlobalInt
-    GlobalInt@ opSubtractAssign(const GlobalInt& in other)
+    GlobalInt@ opSubAssign(const GlobalInt& in other)
     {
         val -= other.val;
         uploadValue();
@@ -172,7 +172,7 @@ class GlobalInt : IStringConversion, AmnesiaVar
     }
 
     // -= an int
-    GlobalInt@ opSubtractAssign(int other)
+    GlobalInt@ opSubAssign(int other)
     {
         val -= other;
         uploadValue();
@@ -180,7 +180,7 @@ class GlobalInt : IStringConversion, AmnesiaVar
     }
 
     // -= a float
-    GlobalInt@ opSubtractAssign(float other)
+    GlobalInt@ opSubAssign(float other)
     {
         val -= int(other);
         uploadValue();
