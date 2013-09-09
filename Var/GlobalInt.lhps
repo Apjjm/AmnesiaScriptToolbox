@@ -139,6 +139,12 @@ class GlobalInt : IStringConversion, AmnesiaVar
         return varName + other;
     }
 
+    // string = GlobalInt + GlobalInt
+    string opAdd(const GlobalInt& in other) const
+    {
+        return varName + other.varName;
+    }
+
     // += other GlobalInt
     GlobalInt@ opAddAssign(const GlobalInt& in other)
     {
