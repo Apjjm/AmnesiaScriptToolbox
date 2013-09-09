@@ -224,6 +224,52 @@ class GlobalInt : IStringConversion, AmnesiaVar
         uploadValue();
         return this;
     }
+
+    int opMul_r(int other) const
+    {
+        return other * val;
+    }
+
+    int opMul(int other) const
+    {
+        return val * other;
+    }
+
+    int opMul_r(float other) const
+    {
+        return int(other) * val;
+    }
+
+    int opMul(float other) const
+    {
+        return val * int(other);
+    }
+
+    int opMul(const GlobalInt& in other) const
+    {
+        return val * other.val;
+    }
+
+    GlobalInt@ opMulAssign(const GlobalInt& in other)
+    {
+        val *= other.val;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opMulAssign(int other)
+    {
+        val *= other;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opMulAssign(float other)
+    {
+        val *= int(other);
+        uploadValue();
+        return this;
+    }
 }
 
 class GlobalInt32 : GlobalInt
