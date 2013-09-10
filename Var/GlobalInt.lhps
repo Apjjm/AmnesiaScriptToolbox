@@ -41,7 +41,7 @@ class GlobalInt : IStringConversion, AmnesiaVar
 
     GlobalInt(string name)
     {
-        this = name;
+        setName(name);
         downloadValue();
     }
 
@@ -103,14 +103,6 @@ class GlobalInt : IStringConversion, AmnesiaVar
         return this;
     }
 
-    // Assign string to varName
-    GlobalInt@ opAssign(const string& in other)
-    {
-        varName = other;
-        uploadValue();
-        return this;
-    }
-
     // Assign a float value
     GlobalInt@ opAssign(float other)
     {
@@ -156,14 +148,6 @@ class GlobalInt : IStringConversion, AmnesiaVar
     GlobalInt@ opAddAssign(float other)
     {
         val += int(other);
-        uploadValue();
-        return this;
-    }
-
-    // Append string to varName
-    GlobalInt@ opAddAssign(const string& in other)
-    {
-        varName += other;
         uploadValue();
         return this;
     }

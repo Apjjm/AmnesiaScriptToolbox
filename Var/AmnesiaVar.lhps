@@ -10,6 +10,12 @@ class AmnesiaVar
         return varName;
     }
 
+    string setName(string str)
+    {
+        varName = str;
+        return str;
+    }
+
     // Check varName matches. Variable value comparison is implemented
     // in inheriting classes
     bool matches(const AmnesiaVar& in other) const
