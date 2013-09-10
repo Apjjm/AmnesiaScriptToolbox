@@ -126,10 +126,10 @@ class GlobalInt : IStringConversion, AmnesiaVar
     /////////////////////////////////////
 
     // string + GlobalInt
-    // Return string other + varName
+    // Return string other + val
     string opAdd_r(const string& in other) const
     {
-        return other + varName;
+        return other + val;
     }
 
     // GlobalInt + string
