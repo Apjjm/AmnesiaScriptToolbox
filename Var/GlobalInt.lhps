@@ -69,14 +69,12 @@ class GlobalInt : IStringConversion, AmnesiaVar
     // Equals an int
     bool opEquals(int other) const
     {
-        AddDebugMessage("opEquals int instance", false);
         return val == other;
     }
 
     // Check varName equals string
     bool opEquals(const string& in other) const
     {
-        AddDebugMessage("opEquals string instance", false);
         return varName == other;
     }
 
