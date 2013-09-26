@@ -2,7 +2,7 @@
 #define LIB_VECTOR3_LHPS
 #include "../ISave.lhps"
 #include "../IStringConversion.lhps"
-#include "fCompare.lhps"
+#include "FCompare.lhps"
 #include "Matrix.lhps"
 
 //////////////////////////////////////////////////
@@ -136,7 +136,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 		
 		while(!fCompare(n,1.0f,epsilon))
 		{
-			output = Vec3(output.x / n, output.y / n, output.z / n);
+			output /= n;
 			n = output.length();
 		}
 	
