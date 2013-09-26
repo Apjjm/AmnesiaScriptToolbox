@@ -1,0 +1,62 @@
+#ifndef LIB_QUARTERNION_LHPS
+#define LIB_QUARTERNION_LHPS
+#include "../ISave.lhps"
+#include "../IStringConversion.lhps"
+#include "FCompare.lhps"
+#include "Vector3.lhps"
+
+class Quaternion : ILocalSave, IGlobalSave, IStringConversion {
+
+	float x;
+	float y;
+	float z;
+	float w;
+	
+	Quaternion(float rotX, float rotY, float rotZ) {
+	 /* todo: wait for trig*/
+	}
+	 
+	Quaternion(const Vec3& in rotation) {
+	 /* todo: wait for trig */
+	}
+	
+	Quaternion(const Vec3& in axis, float angle) {
+	
+	}
+	
+	Quaternion(const Quaternion& in q) {
+	
+	}
+
+	float length() const {
+	
+	}
+	
+	float length2() const {
+	
+	}
+	
+	Quaternion norm() const {
+	
+	}
+	
+	Quaternion normExt(float epsilon) const {
+	
+	}
+	
+	void toAxisAngle(Vec3& out axis, float& out angle) const {
+	
+	}
+	
+	void toEulerAngles() const {
+	
+	}
+	
+	Vec3 rotate(const Vec3& in v) const {
+	 
+	}
+	
+ }
+
+
+#endif
