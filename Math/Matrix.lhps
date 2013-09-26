@@ -2,8 +2,13 @@
 #define LIB_MATRIX4_LHPS
 #include "../ISave.lhps"
 #include "../IStringConversion.lhps"
-#include "fCompare.lhps"
+#include "Constants.lhps"
+#include "FCompare.lhps"
 #include "Vector3.lhps"
+
+/* TODO
+*Quaternion
+*/
 
 class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 
@@ -59,10 +64,10 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	string toString() const {
-		string x = "(";
+		string x = "[";
 		for(int r=0; r<3; r++)
 		 {
-			x += "[";
+			x += "(";
 			for(int c=0; c<3; c++)
 			 {
 				if(c == 0)
@@ -70,9 +75,9 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 				else
 					x += "," + get(r,c);
 			 }
-			x += "]";
+			x += ")";
 		 }
-		return x;
+		return x + "]";
 	}
 	
 	void fromString(const string& in asString) {
@@ -84,20 +89,58 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 	// Matrix Construction
 	//////////////////////////////////////////////////
 	
-	void zeros() {
+	void setZeros() {
 		m = float[](9);
 	}
 	
-	void identity() {
+	void setIdentity() {
 		m[0]=1.0f; m[1]=0.0f; m[2]=0.0f;
 		m[3]=0.0f; m[4]=1.0f; m[5]=0.0f;
 		m[6]=0.0f; m[7]=0.0f; m[8]=1.0f;
 	}
 
-	void ones() {
+	void setOnes() {
 		m[0]=1.0f; m[1]=1.0f; m[2]=1.0f;
 		m[3]=1.0f; m[4]=1.0f; m[5]=1.0f;
 		m[6]=1.0f; m[7]=1.0f; m[8]=1.0f;
+	}
+	
+	//////////////////////////////////////////////////
+	// Rotation Matricies
+	//////////////////////////////////////////////////
+	void setRotation(float eulerX, float eulerY, float eulerZ) {
+		float cx = MathCos(eulerX * M_DEGTORAD);
+		float sx = MathSin(eulerX * M_DEGTORAD); 	
+		float cy = MathCos(eulerY * M_DEGTORAD);
+		float sy = MathSin(eulerY * M_DEGTORAD); 
+		float cz = MathCos(eulerZ * M_DEGTORAD);
+		float sz = MathSin(eulerZ * M_DEGTORAD); 		
+		m[0]= cy*cz           ; m[1]= -cy*sz          ; m[2]= -sy   ;//   |CE     -CF     -D|
+		m[3]= cx*sz - sx*sy*cz; m[4]= cx*cz - sx*sy*sz; m[5]= -sx*cy;//M =|AF-BDE AE-BDF -BC|
+		m[6]= sx*sz + cx*sy*cz; m[7]= sx*cz - cx*sy*sz; m[8]= cx*cy ;//	  |BF+ADE BE-ADF  AC| 
+	}
+	
+	float[] getEulerAngles() const {		
+		float aX = 0.0f;
+		float aY = -MathAsin(m[2]);
+		float aZ = 0.0f;
+	
+		//Check for gimbal lock
+		float cy = -MathCos(aY);
+		if(fCompare(cy,0.0f))
+		{
+			//gimbal lock has occurred
+			aZ = MathAtan2(m[4],m[3]);
+		}
+		else
+		{
+			//No gimbal lock
+			aX = MathAtan2(m[8] / cy, -m[5] / cy);
+			aZ = MathAtan2(m[0] / cy, -m[1] / cy);
+		}
+		
+		float[] r = { aX * M_RADTODEG, aY * M_RADTODEG, aZ * M_RADTODEG };
+		return r;
 	}
 	
 	//////////////////////////////////////////////////
@@ -257,6 +300,26 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return this;
 	}
 	
+	Matrix norm() const {
+		float n = getDeterminant();
+		return (n>0.0f)?(opDiv(n)):(Matrix());
+	}
+	
+	Matrix normExt(float epsilon) const {
+		Matrix output = Matrix(m);
+		float n = getDeterminant();
+		
+		if(n < epsilon) return Matrix();
+		
+		while(!fCompare(n,1.0f,epsilon))
+		{
+			output /= n;
+			n = output.getDeterminant();
+		}
+	
+		return output;
+	}
+	
 	//////////////////////////////////////////////////
 	// Matrix operators
 	//////////////////////////////////////////////////
@@ -323,7 +386,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return this;
 	}
 	
-	Matrix opAdd(const Matrix& in rhs) {
+	Matrix opAdd(const Matrix& in rhs) const {
 		Matrix ret;
 		ret.m[0] = m[0]+rhs.m[0]; ret.m[1] = m[1]+rhs.m[1]; ret.m[2] = m[2]+rhs.m[2];
 		ret.m[3] = m[3]+rhs.m[3]; ret.m[4] = m[4]+rhs.m[4]; ret.m[5] = m[5]+rhs.m[5];
@@ -331,7 +394,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ret;
 	}
 	
-	Matrix opSub(const Matrix& in rhs) {
+	Matrix opSub(const Matrix& in rhs) const {
 		Matrix ret;
 		ret.m[0] = m[0]-rhs.m[0]; ret.m[1] = m[1]-rhs.m[1]; ret.m[2] = m[2]-rhs.m[2];
 		ret.m[3] = m[3]-rhs.m[3]; ret.m[4] = m[4]-rhs.m[4]; ret.m[5] = m[5]-rhs.m[5];
@@ -339,7 +402,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ret;
 	}
 	
-	Matrix opAdd(const float rhs) {
+	Matrix opAdd(const float rhs) const {
 		Matrix ret;
 		ret.m[0] = m[0]+rhs; ret.m[1] = m[1]+rhs; ret.m[2] = m[2]+rhs;
 		ret.m[3] = m[3]+rhs; ret.m[4] = m[4]+rhs; ret.m[5] = m[5]+rhs;
@@ -347,7 +410,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ret;
 	}
 	
-	Matrix opSub(const float rhs) {
+	Matrix opSub(const float rhs) const {
 		Matrix ret;
 		ret.m[0] = m[0]-rhs; ret.m[1] = m[1]-rhs; ret.m[2] = m[2]-rhs;
 		ret.m[3] = m[3]-rhs; ret.m[4] = m[4]-rhs; ret.m[5] = m[5]-rhs;
@@ -355,7 +418,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ret;
 	}
 	
-	Matrix opAdd(const int rhs) {
+	Matrix opAdd(const int rhs) const {
 		Matrix ret;
 		ret.m[0] = m[0]+rhs; ret.m[1] = m[1]+rhs; ret.m[2] = m[2]+rhs;
 		ret.m[3] = m[3]+rhs; ret.m[4] = m[4]+rhs; ret.m[5] = m[5]+rhs;
@@ -363,7 +426,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ret;
 	}
 	
-	Matrix opSub(const int rhs) {
+	Matrix opSub(const int rhs) const {
 		Matrix ret;
 		ret.m[0] = m[0]-rhs; ret.m[1] = m[1]-rhs; ret.m[2] = m[2]-rhs;
 		ret.m[3] = m[3]-rhs; ret.m[4] = m[4]-rhs; ret.m[5] = m[5]-rhs;
@@ -415,7 +478,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return this;
 	}
 	
-	Matrix opMul(const Matrix& in rhs) {
+	Matrix opMul(const Matrix& in rhs) const {
 		Matrix ans;
 		ans.m[0] = m[0]*rhs.m[0] + m[1]*rhs.m[3] + m[2]*rhs.m[6];
 		ans.m[1] = m[0]*rhs.m[1] + m[1]*rhs.m[4] + m[2]*rhs.m[7];
@@ -429,7 +492,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ans;
 	}
 	
-	Matrix opMul(const float rhs) {
+	Matrix opMul(const float rhs) const {
 		Matrix ans;
 		ans.m[0] = m[0]*rhs; ans.m[1] = m[1]*rhs; ans.m[2] = m[2]*rhs; 
 		ans.m[3] = m[3]*rhs; ans.m[4] = m[4]*rhs; ans.m[5] = m[5]*rhs; 
@@ -437,7 +500,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ans;
 	}
 	
-	Matrix opMul(const int rhs) {
+	Matrix opMul(const int rhs) const {
 		Matrix ans;
 		ans.m[0] = m[0]*rhs; ans.m[1] = m[1]*rhs; ans.m[2] = m[2]*rhs; 
 		ans.m[3] = m[3]*rhs; ans.m[4] = m[4]*rhs; ans.m[5] = m[5]*rhs; 
@@ -445,7 +508,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ans;
 	}
 	
-	Matrix opDiv(const float rhs) {
+	Matrix opDiv(const float rhs) const {
 		Matrix ans;
 		ans.m[0] = m[0]/rhs; ans.m[1] = m[1]/rhs; ans.m[2] = m[2]/rhs; 
 		ans.m[3] = m[3]/rhs; ans.m[4] = m[4]/rhs; ans.m[5] = m[5]/rhs; 
@@ -453,7 +516,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ans;
 	}
 	
-	Matrix opDiv(const int rhs) {
+	Matrix opDiv(const int rhs) const {
 		Matrix ans;
 		ans.m[0] = m[0]/rhs; ans.m[1] = m[1]/rhs; ans.m[2] = m[2]/rhs; 
 		ans.m[3] = m[3]/rhs; ans.m[4] = m[4]/rhs; ans.m[5] = m[5]/rhs; 
@@ -461,7 +524,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return ans;
 	}
 	
-	Vec3 opMul(const Vec3& in rhs) {
+	Vec3 opMul(const Vec3& in rhs) const {
 		Vec3 vector;
 		vector.x = m[0]*rhs.x + m[1]*rhs.y + m[2]*rhs.z;
 		vector.y = m[3]*rhs.x + m[4]*rhs.y + m[5]*rhs.z;
