@@ -79,7 +79,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	
 	void fromString(const string& in asString) {
 		AddDebugMessage("Vec3::fromString() not implemented yet",false);
-		/* Todo: Wait to confirm number parsing in script update instead of rolling own */
+		/* Todo: Break into 3 floats and use StringToFloat */
 	}
 	
 	//////////////////////////////////////////////////

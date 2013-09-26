@@ -82,7 +82,7 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 	
 	void fromString(const string& in asString) {
 		AddDebugMessage("Matrix::fromString() not implemented yet",false);
-		/* Todo: Wait to confirm number parsing in script update instead of rolling own */
+		/* Todo: Break apart into sub-braces, then break into floats and use StringToFloat */
 	}
 	
 	//////////////////////////////////////////////////
