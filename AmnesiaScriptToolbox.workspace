@@ -11,8 +11,10 @@
         </Folder>
         <Folder name="Math">
             <File name="Math\Vector3.lhps" />
-            <File name="Math\fCompare.lhps" />
             <File name="Math\Matrix.lhps" />
+            <File name="Math\Quaternion.lhps" />
+            <File name="Math\Constants.lhps" />
+            <File name="Math\FCompare.lhps" />
         </Folder>
     </Project>
 </NotepadPlus>

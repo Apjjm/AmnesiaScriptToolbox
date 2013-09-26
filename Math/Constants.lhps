@@ -1,0 +1,67 @@
+#ifndef LIB_MATHCONSTANTS_LHPS
+#define LIB_MATHCONSTANTS_LHPS
+//////////////////////////////////////////////////
+//The Type of the constants
+//////////////////////////////////////////////////
+#define MATH_CONSTANT(X) const float X ## f;
+
+//////////////////////////////////////////////////
+//Degrees <--> Radians Conversion
+//////////////////////////////////////////////////
+MATH_CONSTANT(M_DEGTORAD = 0.017453292519943295769) 
+MATH_CONSTANT(M_RADTODEG = 57.29577951308232087680)
+
+//////////////////////////////////////////////////
+//PI
+//////////////////////////////////////////////////
+MATH_CONSTANT(M_QUART_PI = 0.78539816339744830962)
+MATH_CONSTANT(M_HALF_PI  = 1.57079632679489661923)
+MATH_CONSTANT(M_PI       = 3.14159265358979323846)
+MATH_CONSTANT(M_TWO_PI   = 6.28318530717958647693)
+MATH_CONSTANT(M_INV_PI   = 0.31830988618379067154)
+MATH_CONSTANT(M_SQRT_PI  = 1.77245385090551602730)
+
+//////////////////////////////////////////////////
+//Euler's Number
+//////////////////////////////////////////////////
+MATH_CONSTANT(M_E    = 2.7182818284590452354) 
+MATH_CONSTANT(M_INV_E = 0.367879441171442322)  // 1/e
+MATH_CONSTANT(M_E_PI = 23.140692632779269005)  //Gelfond constant (e^PI)
+
+//////////////////////////////////////////////////
+//Other Constants
+//////////////////////////////////////////////////
+MATH_CONSTANT(M_PHI  = 1.6180339887498948482)  //Golden Ratio, phi
+
+//////////////////////////////////////////////////
+//Log Conversion
+//////////////////////////////////////////////////
+MATH_CONSTANT(M_LOG2E  = 1.4426950408889634074)
+MATH_CONSTANT(M_LOG10E = 0.43429448190325182765)
+MATH_CONSTANT(M_LN2    = 0.69314718055994530942)
+MATH_CONSTANT(M_LN10   = 2.30258509299404568402)
+
+//////////////////////////////////////////////////
+//COMMON ROOTS
+//////////////////////////////////////////////////
+MATH_CONSTANT(M_SQRT2     = 1.41421356237309504880)
+MATH_CONSTANT(M_INV_SQRT2 = 0.70710678118654752440)
+MATH_CONSTANT(M_SQRT3     = 1.73205080756887729352)
+MATH_CONSTANT(M_SQRT5     = 2.23606797749978969640)
+
+//////////////////////////////////////////////////
+//FLOAT & DOUBLE CONSTANTS
+//////////////////////////////////////////////////
+const float FLOAT_EPSILON  =  1.175494351e-38f;
+const float FLOAT_MAXVALUE =  3.402823466e+38f;
+const float FLOAT_MINVALUE = -3.402823466e+38f;
+const float FLOAT_PINF = FLOAT_MAXVALUE * 2.0f;
+const float FLOAT_NINF = FLOAT_MINVALUE * 2.0f;
+const float FLOAT_NAN  = FLOAT_PINF + FLOAT_NINF;
+const double DOUBLE_EPSILON  =  2.2250738585072014e-308;
+const double DOUBLE_MAXVALUE =  1.7976931348623158e+308;
+const double DOUBLE_MINVALUE = -1.7976931348623158e+308;
+const double DOUBLE_PINF = DOUBLE_MAXVALUE * 2.0f;
+const double DOUBLE_NINF = DOUBLE_MINVALUE * 2.0f;
+const double DOUBLE_NAN  = DOUBLE_PINF + DOUBLE_NINF;
+#endif
