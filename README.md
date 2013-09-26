@@ -13,3 +13,9 @@ Classes: Static methods/members, private non-void return type functions, const m
 Callbacks: Callbacks to Amnesia scripts must be in global scope
 
 Function pointers: No way to save / restore state on save/load occurance.
+
+Beta Functions
+====================
+This toolbox assumes you are running the latest version of amnesia. Only this version is supported!
+Currently, the latest version is a beta and can be obtained at the following link:
+http://www.frictionalgames.com/forum/thread-23378.html
