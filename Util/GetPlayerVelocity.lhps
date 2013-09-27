@@ -30,13 +30,13 @@ float GetPlayerVelocity(float &out X, float &out Y, float &out Z)
     _z = (GetPlayerPosZ() - __gpv_z);
     float l = _x * _x + _y * _y + _z * _z;
     l *= 60;
-    float s = GetPlayerSpeed();
     if(l < 0.000001f) {
         X = 0;
         Y = 0;
         Z = 0;
         return -1;
     }
+    float s = GetPlayerSpeed();
     s *= s;
     X = _x * s / l;
     Y = _y * s / l;
