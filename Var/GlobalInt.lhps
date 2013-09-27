@@ -16,8 +16,6 @@
  *
  * Assigning GlobalInt to primitives is not supported, since global operators
  * for Angelscript can only be implemented in native code (as far as I know).
- * However, GlobalInt supports assignment of primitives such as ints, floats
- * and even strings (for changing the variable name stored by Amnesia)
  **/
 class GlobalInt : IStringConversion, AmnesiaVar
 {
