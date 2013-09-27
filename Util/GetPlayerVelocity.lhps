@@ -1,0 +1,47 @@
+#ifndef LIB_GETPLAYERVELOCITY_LHPS
+#define LIB_GETPLAYERVELOCITY_LHPS
+
+float __gpv_x, __gpv_y, __gpv_z;
+bool __gpv_started = false;
+void __gpv_loopfunc(string& in str)
+{
+    __gpv_x = GetPlayerPosX();
+    __gpv_y = GetPlayerPosY();
+    __gpv_z = GetPlayerPosZ();
+    AddTimer("__gpv_looptimer", 0.0166f, "__gpv_loopfunc");
+}
+
+// Usage:
+// float X, Y, Z;
+// float Speed = GetPlayerVelocity(X, Y, Z);
+//
+// Params are &out references, their value will be the player velocity along
+// that axis after GetPlayerVelocity returns.
+float GetPlayerVelocity(float &out X, float &out Y, float &out Z)
+{
+    if(!__gpv_started) {
+        __gpv_loopfunc("");
+        __gpv_started = true;
+    }
+
+    float _x, _y, _z;
+    _x = (GetPlayerPosX() - __gpv_x);
+    _y = (GetPlayerPosY() - __gpv_y);
+    _z = (GetPlayerPosZ() - __gpv_z);
+    float l = _x * _x + _y * _y + _z * _z;
+    l *= 60;
+    float s = GetPlayerSpeed();
+    if(l < 0.000001f) {
+        X = 0;
+        Y = 0;
+        Z = 0;
+        return -1;
+    }
+    s *= s;
+    X = _x * s / l;
+    Y = _y * s / l;
+    Z = _z * s / l;
+    return MathSqrt(X * X + Y * Y + Z * Z);
+}
+
+#endif // LIB_GETPLAYERVELOCITY_LHPS
