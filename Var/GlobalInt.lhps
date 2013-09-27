@@ -239,6 +239,198 @@ class GlobalInt : IStringConversion, AmnesiaVar
         uploadValue();
         return this;
     }
+
+    int opNeg() const
+    {
+        return -val;
+    }
+
+    int opCom() const
+    {
+        return ~val;
+    }
+
+    int opPreInc()
+    {
+        ++val;
+        uploadValue();
+        return val;
+    }
+
+    int opPreDec()
+    {
+        --val;
+        uploadValue();
+        return val;
+    }
+
+    int opPostInc()
+    {
+        val++;
+        uploadValue();
+        return val;
+    }
+
+    int opPostDec()
+    {
+        val--;
+        uploadValue();
+        return val;
+    }
+
+    int opCmp(int other) const
+    {
+        if(val < other)
+            return 1;
+        else if(val > other)
+            return -1;
+        else
+            return 0;
+    }
+
+    GlobalInt@ opModAssign(int other)
+    {
+        val %= other;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opModAssign(const GlobalInt& other)
+    {
+        val %= other.val;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opAndAssign(int other)
+    {
+        val &= other;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opAndAssign(const GlobalInt& other)
+    {
+        val &= other.val;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opOrAssign(int other)
+    {
+        val |= other;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opOrAssign(const GlobalInt& other)
+    {
+        val |= other.val;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opXorAssign(int other)
+    {
+        val ^= other;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opXorAssign(const GlobalInt& other)
+    {
+        val ^= other.val;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opShrAssign(int other)
+    {
+        val >>= other;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opShrAssign(const GlobalInt& other)
+    {
+        val >>= other.val;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opShlAssign(int other)
+    {
+        val <<= other;
+        uploadValue();
+        return this;
+    }
+
+    GlobalInt@ opShlAssign(const GlobalInt& other)
+    {
+        val <<= other.val;
+        uploadValue();
+        return this;
+    }
+
+    int opMod(int other) const
+    {
+        return val % other;
+    }
+
+    int opMod_r(int other) const
+    {
+        return other % val;
+    }
+
+    int opAnd(int other) const
+    {
+        return val & other;
+    }
+
+    int opAnd_r(int other) const
+    {
+        return other & val;
+    }
+
+    int opOr(int other) const
+    {
+        return val | other;
+    }
+
+    int opOr_r(int other) const
+    {
+        return other | val;
+    }
+
+    int opXor(int other) const
+    {
+        return val ^ other;
+    }
+
+    int opXor_r(int other) const
+    {
+        return other ^ val;
+    }
+
+    int opShr(int other) const
+    {
+        return val >> other;
+    }
+
+    int opShr_r(int other) const
+    {
+        return other >> val;
+    }
+
+    int opShl(int other) const
+    {
+        return val << other;
+    }
+
+    int opShl_r(int other) const
+    {
+        return other << val;
+    }
 }
 
 class GlobalInt32 : GlobalInt
