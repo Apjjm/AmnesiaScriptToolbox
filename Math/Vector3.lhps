@@ -114,9 +114,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	float length() const {
-		AddDebugMessage("Vec3::length() not implemented yet - returning length2()",false);
-		/* Todo: Wait to confirm sqrt in script update instead of rolling own */
-		return x*x + y*y + z*z;
+		return MathSqrt(x*x + y*y + z*z);
 	}
 	
 	float length2() const {
