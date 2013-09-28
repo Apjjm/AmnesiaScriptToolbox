@@ -3,6 +3,7 @@
 
 #include "../IStringConversion.lhps"
 #include "../Math/fCompare.lhps"
+#include "../ISave.lhps"
 #include "AmnesiaVar.lhps"
 
 /**
@@ -10,27 +11,21 @@
  * functions. Behaves like a normal int using a standard operator set for
  * manipulating the data.
  *
- * Do not modify the global variable manually. This can cause unwanted
- * behavior since the value of the variables is cached to prevent repeated
- * calls to the Amnesia script functions.
- *
  * Assigning GlobalInt to primitives is not supported, since global operators
  * for Angelscript can only be implemented in native code (as far as I know).
  **/
-class GlobalInt : IStringConversion, AmnesiaVar
+class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave
 {
-    private int val; // Cache value
-
-    // Store Amnesia var into a cache variable
-    private void downloadValue()
+    void loadGlobal(const string &in id)
     {
-        val = GetGlobalVarInt(varName);
+        // change my value, keep my identity
+        SetGlobalVarInt(varName, GetGlobalVarInt(id));
     }
 
-    // Upload val in Amnesia variable
-    private void uploadValue()
+    void saveGlobal(const string &in id) const
     {
-        SetGlobalVarInt(varName, val);
+        // create a copy
+        SetGlobalVarInt(id, GetGlobalVarInt(varName));
     }
 
     /////////////////////////////////////
@@ -40,12 +35,11 @@ class GlobalInt : IStringConversion, AmnesiaVar
     GlobalInt(string name)
     {
         setName(name);
-        downloadValue();
     }
 
     string toString() const
     {
-        return "GlobalInt \"" + varName + "\":" + val;
+        return "GlobalInt \"" + varName + "\":" + GetGlobalVarInt(varName);
     }
 
     void fromString(const string& in asString)
@@ -61,13 +55,13 @@ class GlobalInt : IStringConversion, AmnesiaVar
     // Only checks the variable value, does not compare varName
     bool opEquals(const GlobalInt& in other) const
     {
-        return val == other.val;
+        return GetGlobalVarInt(varName) == GetGlobalVarInt(other.varName);
     }
 
     // Equals an int
     bool opEquals(int other) const
     {
-        return val == other;
+        return GetGlobalVarInt(varName) == other;
     }
 
     // Check varName equals string
@@ -78,7 +72,7 @@ class GlobalInt : IStringConversion, AmnesiaVar
 
     bool opEquals(float other) const
     {
-        return fCompare(other, val);
+        return fCompare(other, GetGlobalVarInt(varName));
     }
 
     /////////////////////////////////////
@@ -88,24 +82,21 @@ class GlobalInt : IStringConversion, AmnesiaVar
     // Assign GlobalInt value
     GlobalInt@ opAssign(const GlobalInt& in other)
     {
-        val = other.val;
-        uploadValue();
+        SetGlobalVarInt(varName, GetGlobalVarInt(other.varName));
         return this;
     }
 
     // Assign int value
     GlobalInt@ opAssign(int other)
     {
-        val = other;
-        uploadValue();
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     // Assign a float value
     GlobalInt@ opAssign(float other)
     {
-        val = int(other);
-        uploadValue();
+        SetGlobalVarInt(varName, int(other));
         return this;
     }
 
@@ -114,173 +105,173 @@ class GlobalInt : IStringConversion, AmnesiaVar
     /////////////////////////////////////
 
     // string + GlobalInt
-    // Return string other + val
+    // return concatenation
     string opAdd_r(const string& in other) const
     {
-        return other + val;
+        return other + GetGlobalVarInt(varName);
     }
 
     // += other GlobalInt
     GlobalInt@ opAddAssign(const GlobalInt& in other)
     {
-        val += other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) + GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     // += an int
     GlobalInt@ opAddAssign(int other)
     {
-        val += other;
-        uploadValue();
+        other += GetGlobalVarInt(varName);
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     // += a float
     GlobalInt@ opAddAssign(float other)
     {
-        val += int(other);
-        uploadValue();
+        int x = GetGlobalVarInt(varName) + int(other);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     // int - GlobalInt
     int opSub_r(int other) const
     {
-        return other - val;
+        return other - GetGlobalVarInt(varName);
     }
 
     // GlobalInt - GlobalInt
     int opSub(const GlobalInt& in other) const
     {
-        return val - other.val;
+        return GetGlobalVarInt(varName) - GetGlobalVarInt(other.varName);
     }
 
     // float - GlobalInt
     int opSub_r(float other) const
     {
-        return int(other) - val;
+        return int(other) - GetGlobalVarInt(varName);
     }
 
     // GlobalInt - float
     int opSub(float other) const
     {
-        return val - int(other);
+        return GetGlobalVarInt(varName) - int(other);
     }
 
     // -= other GlobalInt
     GlobalInt@ opSubAssign(const GlobalInt& in other)
     {
-        val -= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) - GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     // -= an int
     GlobalInt@ opSubAssign(int other)
     {
-        val -= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) - other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     // -= a float
     GlobalInt@ opSubAssign(float other)
     {
-        val -= int(other);
-        uploadValue();
+        int x = GetGlobalVarInt(varName) - int(other);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     int opMul_r(int other) const
     {
-        return other * val;
+        return other * GetGlobalVarInt(varName);
     }
 
     int opMul(int other) const
     {
-        return val * other;
+        return GetGlobalVarInt(varName) * other;
     }
 
     int opMul_r(float other) const
     {
-        return int(other) * val;
+        return int(other) * GetGlobalVarInt(varName);
     }
 
     int opMul(float other) const
     {
-        return val * int(other);
+        return GetGlobalVarInt(varName) * int(other);
     }
 
     int opMul(const GlobalInt& in other) const
     {
-        return val * other.val;
+        return GetGlobalVarInt(varName) * GetGlobalVarInt(other.varName);
     }
 
     GlobalInt@ opMulAssign(const GlobalInt& in other)
     {
-        val *= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) * GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     GlobalInt@ opMulAssign(int other)
     {
-        val *= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) * other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     GlobalInt@ opMulAssign(float other)
     {
-        val *= int(other);
-        uploadValue();
+        int x = GetGlobalVarInt(varName) * other;
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     int opNeg() const
     {
-        return -val;
+        return -GetGlobalVarInt(varName);
     }
 
     int opCom() const
     {
-        return ~val;
+        return ~GetGlobalVarInt(varName);
     }
 
     int opPreInc()
     {
-        ++val;
-        uploadValue();
-        return val;
+        int x = GetGlobalVarInt(varName) + 1;
+        SetGlobalVarInt(varName, x);
+        return x;
     }
 
     int opPreDec()
     {
-        --val;
-        uploadValue();
-        return val;
+        int x = GetGlobalVarInt(varName) - 1;
+        SetGlobalVarInt(varName, x);
+        return x;
     }
 
     int opPostInc()
     {
-        val++;
-        uploadValue();
-        return val;
+        int x = GetGlobalVarInt(varName);
+        SetGlobalVarInt(varName, x+1);
+        return x;
     }
 
     int opPostDec()
     {
-        val--;
-        uploadValue();
-        return val;
+        int x = GetGlobalVarInt(varName);
+        SetGlobalVarInt(varName, x-1);
+        return x;
     }
 
     int opCmp(int other) const
     {
-        if(val < other)
+        if(GetGlobalVarInt(varName) < other)
             return 1;
-        else if(val > other)
+        else if(GetGlobalVarInt(varName) > other)
             return -1;
         else
             return 0;
@@ -288,146 +279,176 @@ class GlobalInt : IStringConversion, AmnesiaVar
 
     GlobalInt@ opModAssign(int other)
     {
-        val %= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) % other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     GlobalInt@ opModAssign(const GlobalInt& other)
     {
-        val %= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) % GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     GlobalInt@ opAndAssign(int other)
     {
-        val &= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) & other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     GlobalInt@ opAndAssign(const GlobalInt& other)
     {
-        val &= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) & GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     GlobalInt@ opOrAssign(int other)
     {
-        val |= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) | other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     GlobalInt@ opOrAssign(const GlobalInt& other)
     {
-        val |= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) | GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     GlobalInt@ opXorAssign(int other)
     {
-        val ^= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) ^ other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     GlobalInt@ opXorAssign(const GlobalInt& other)
     {
-        val ^= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) ^ GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     GlobalInt@ opShrAssign(int other)
     {
-        val >>= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) >> other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     GlobalInt@ opShrAssign(const GlobalInt& other)
     {
-        val >>= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) >> GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     GlobalInt@ opShlAssign(int other)
     {
-        val <<= other;
-        uploadValue();
+        other = GetGlobalVarInt(varName) << other;
+        SetGlobalVarInt(varName, other);
         return this;
     }
 
     GlobalInt@ opShlAssign(const GlobalInt& other)
     {
-        val <<= other.val;
-        uploadValue();
+        int x = GetGlobalVarInt(varName) << GetGlobalVarInt(other.varName);
+        SetGlobalVarInt(varName, x);
         return this;
     }
 
     int opMod(int other) const
     {
-        return val % other;
+        return GetGlobalVarInt(varName) % other;
+    }
+
+    int opMod(const GlobalInt& other) const
+    {
+        return GetGlobalVarInt(varName) % GetGlobalVarInt(other.varName);
     }
 
     int opMod_r(int other) const
     {
-        return other % val;
+        return other % GetGlobalVarInt(varName);
     }
 
     int opAnd(int other) const
     {
-        return val & other;
+        return GetGlobalVarInt(varName) & other;
+    }
+
+    int opAnd(const GlobalInt& other) const
+    {
+        return GetGlobalVarInt(varName) & GetGlobalVarInt(other.varName);
     }
 
     int opAnd_r(int other) const
     {
-        return other & val;
+        return other & GetGlobalVarInt(varName);
     }
 
     int opOr(int other) const
     {
-        return val | other;
+        return GetGlobalVarInt(varName) | other;
+    }
+
+    int opOr(const GlobalInt& other) const
+    {
+        return GetGlobalVarInt(varName) | GetGlobalVarInt(other.varName);
     }
 
     int opOr_r(int other) const
     {
-        return other | val;
+        return other | GetGlobalVarInt(varName);
     }
 
     int opXor(int other) const
     {
-        return val ^ other;
+        return GetGlobalVarInt(varName) ^ other;
+    }
+
+    int opXor(const GlobalInt& other) const
+    {
+        return GetGlobalVarInt(varName) ^ GetGlobalVarInt(other.varName);
     }
 
     int opXor_r(int other) const
     {
-        return other ^ val;
+        return other ^ GetGlobalVarInt(varName);
     }
 
     int opShr(int other) const
     {
-        return val >> other;
+        return GetGlobalVarInt(varName) >> other;
+    }
+
+    int opShr(const GlobalInt& other) const
+    {
+        return GetGlobalVarInt(varName) >> GetGlobalVarInt(other.varName);
     }
 
     int opShr_r(int other) const
     {
-        return other >> val;
+        return other >> GetGlobalVarInt(varName);
     }
 
     int opShl(int other) const
     {
-        return val << other;
+        return GetGlobalVarInt(varName) << other;
+    }
+
+    int opShl(const GlobalInt& other) const
+    {
+        return GetGlobalVarInt(varName) << GetGlobalVarInt(other.varName);
     }
 
     int opShl_r(int other) const
     {
-        return other << val;
+        return other << GetGlobalVarInt(varName);
     }
 }
 
