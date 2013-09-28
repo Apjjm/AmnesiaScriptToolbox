@@ -53,6 +53,7 @@ MATH_CONSTANT(M_SQRT5     = 2.23606797749978969640)
 //Game Constants
 //////////////////////////////////////////////////
 const float GAME_TIMESTEP = 1.0f / 60.0f;
+const float GAME_INV_TIMESTEP = 60.0f;
 
 //////////////////////////////////////////////////
 //FLOAT & DOUBLE CONSTANTS
