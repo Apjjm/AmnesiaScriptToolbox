@@ -1,0 +1,1652 @@
+<?xml version="1.0" encoding="Windows-1252" ?>
+<NotepadPlus>
+	<AutoComplete language="HPS">
+		<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=""/>
+		<KeyWord name="AddAttachedPropToProp" func="yes">
+			<Overload retVal="void" descr="Bugged & Depeciated. Use AttachPropToProp instead.">
+				<Param name="string& asPropName" />
+				<Param name="string& asAttachName" />
+				<Param name="string& asAttachFile" />
+				<Param name="float afPosX" />
+				<Param name="float afPosY" />
+				<Param name="float nothing" />
+				<Param name="float afRotX" />
+				<Param name="float afRotY" />
+				<Param name="float afRotPosZ" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddBodyForce" func="yes">
+			<Overload retVal="void" descr="Apply a force to a given body. An entity body is referenced as <entity>_<body>.">
+				<Param name="string& asName" />
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+				<Param name="string& asCoordSystem" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddBodyImpulse" func="yes">
+			<Overload retVal="void" descr="Apply an impulse to a given body. An entity body is referenced as <entity>_<body>" >
+				<Param name="string& asName" />
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+				<Param name="string& asCoordSystem" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddCombineCallback" func="yes">
+			<Overload retVal="void" descr="Calls the specified function when the player combines items in the inventory.
+			Callback syntax: void Foo(string &in asItemA, string &in asItemB)">
+				<Param name="string& asName" />
+				<Param name="string& asItemA" />
+				<Param name="string& asItemB" />
+				<Param name="string& asFunction" />
+				<Param name="bool abAutoDestroy" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddDebugMessage" func="yes">
+			<Overload retVal="void" descr="Prints a string to the debug console.">
+				<Param name="string& asString" />
+				<Param name="bool abCheckForDuplicates" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddDiary" func="yes">
+			<Overload retVal="void" descr="Adds a diary to the player's journal.">
+				<Param name="string& asNameAndTextEntry" />
+				<Param name="string& asImage" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddEffectVoice" func="yes">
+			<Overload retVal="void" descr="Adds a voice and an effect to the effect voice queue.">
+				<Param name="string& asVoiceFile" />
+				<Param name="string& asEffectFile" />
+				<Param name="string& asTextCat" />
+				<Param name="string& asTextEntry" />
+				<Param name="bool abUsePostion" />
+				<Param name="string& asPosEnitity" />
+				<Param name="float afMinDistance" />
+				<Param name="float afMaxDistance" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddEnemyPatrolNode" func="yes">
+			<Overload retVal="void" descr="Adds a patrol node to the enemy's path." >
+				<Param name="string& asName" />
+				<Param name="string& asNodeName" />
+				<Param name="float afWaitTime" />
+				<Param name="string& asAnimation" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddEntityCollideCallback" func="yes">
+			<Overload retVal="void" descr="Calls a function when two entites collide. asChildName does not support *. alStates 1:enter -1:leave 0:both 
+			Callback syntax: void Foo(string &in asParent, string &in asChild, int alState) " >
+				<Param name="string& asParentName" />
+				<Param name="string& asChildName" />
+				<Param name="string& asFunction" />
+				<Param name="bool abDeleteOnCollide" />
+				<Param name="int alStates" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddGlobalVarFloat" func="yes">
+			<Overload retVal="void" descr="Adds a float to an existing global (cross-map) float variable." >
+				<Param name="string& asName" />
+				<Param name="float afVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddGlobalVarInt" func="yes">
+			<Overload retVal="void" descr="Adds an int to an existing global (cross-map) int variable." >
+				<Param name="string& asName" />
+				<Param name="int alVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddGlobalVarString" func="yes">
+			<Overload retVal="void" descr="Appends a string to an existing global (cross-map) string variable." >
+				<Param name="string& asName" />
+				<Param name="string& asVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddKeyPart" func="yes">
+			<Overload retVal="void" descr="Justine function. Behaviour undocumented." >
+				<Param name="int alKeyPart" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddLocalVarFloat" func="yes">
+			<Overload retVal="void" descr="Adds a float to an existing local (map-scope) float variable." >
+				<Param name="string& asName" />
+				<Param name="float afVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddLocalVarInt" func="yes">
+			<Overload retVal="void" descr="Adds a int to an existing local (map-scope) int variable." >
+				<Param name="string& asName" />
+				<Param name="int alVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddLocalVarString" func="yes">
+			<Overload retVal="void" descr="Appends a string to an existing local (map-scope) string variable." >
+				<Param name="string& asName" />
+				<Param name="string& asVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddNote" func="yes">
+			<Overload retVal="void" descr="Adds a note to the player's journal." >
+				<Param name="string& asNameAndTextEntry" />
+				<Param name="string& asImage" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddPlayerBodyForce" func="yes">
+			<Overload retVal="void" descr="Add a force to the player body. Values below ~2k will have little effect by default." >
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+				<Param name="bool abUseLocalCoords" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddPlayerHealth" func="yes">
+			<Overload retVal="void" descr="Gives the player health." >
+				<Param name="float afHealth" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddPlayerLampOil" func="yes">
+			<Overload retVal="void" descr="Gives the player oil." >
+				<Param name="float afOil" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddPlayerSanity" func="yes">
+			<Overload retVal="void" descr="Gives the player sanity.">
+				<Param name="float afSanity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddPropForce" func="yes">
+			<Overload retVal="void" descr="Apply a force to a given entity.">
+				<Param name="string& asName" />
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+				<Param name="string& asCoordSystem" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddPropHealth" func="yes">
+			<Overload retVal="void" descr="Gives health to an entity.">
+				<Param name="string& asName" />
+				<Param name="float afHealth" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddPropImpulse" func="yes">
+			<Overload retVal="void" descr="Apply an impulse to a given entity.">
+				<Param name="string& asName" />
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+				<Param name="string& asCoordSystem" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddQuest" func="yes">
+			<Overload retVal="void" descr="Adds a quest to the player's journal.">
+				<Param name="string& asName" />
+				<Param name="string& asNameAndTextEntry" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddTimer" func="yes">
+			<Overload retVal="void" descr="Creates a timer which calls a function when it expires.
+			Callback syntax: void Foo(string &in asTimer)">
+				<Param name="string& asName" />
+				<Param name="float afTime" />
+				<Param name="string& asFunction" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AddUseItemCallback" func="yes">
+			<Overload retVal="void" descr="Calls a function when the player uses an item on an entity.
+			Callback syntax: void Foo(string &in asItem, string &in asEntity)">
+				<Param name="string& asName" />
+				<Param name="string& asItem" />
+				<Param name="string& asEntity" />
+				<Param name="string& asFunction" />
+				<Param name="bool abAutoDestroy" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="AlertEnemyOfPlayerPresence" func="yes">
+			<Overload retVal="void" descr="Gives the specified enemy the player's current position and makes it search the area.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AttachBodyToStickyArea" func="yes">
+			<Overload retVal="void" descr="Attaches a body to a StickyArea.">
+				<Param name="string& asAreaName" />
+				<Param name="string& asBody" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AttachPropToProp" func="yes">
+			<Overload retVal="void" descr="Creates and attaches a prop to another prop.">
+				<Param name="string& asPropName" />
+				<Param name="string& asAttachName" />
+				<Param name="string& asAttachFile" />
+				<Param name="float afPosX" />
+				<Param name="float afPosY" />
+				<Param name="float afPosZ" />
+				<Param name="float afRotX" />
+				<Param name="float afRotY" />
+				<Param name="float afRotZ" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="AttachPropToStickyArea" func="yes">
+			<Overload retVal="void" descr="Attaches a prop to a StickyArea.">
+				<Param name="string& asAreaName" />
+				<Param name="string& asProp" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="AutoSave" func="yes">
+			<Overload retVal="void" descr="Saves the game to the auto save.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="BlockHint" func="yes">
+			<Overload retVal="void" descr="Blocks a hint from being shown.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="bool" />
+		<KeyWord name="break" />
+		<KeyWord name="BreakJoint" func="yes">
+			<Overload retVal="void" descr="Breaks a joint. Do not use this where the joint is part of an interaction (e.g. doors).">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="case" />
+		<KeyWord name="cast" />
+		<KeyWord name="ChangeMap" func="yes">
+			<Overload retVal="void" descr="Load the specified map.">
+				<Param name="string& asMapName" />
+				<Param name="string& asStartPos" />
+				<Param name="string& asStartSound" />
+				<Param name="string& asEndSound" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ChangeManPigPose" func="yes">
+			<Overload retVal="void" descr="Changes the pose of the specifed ManPig. asPoseType Can be 'Biped' or 'Quadruped'.">
+				<Param name="string& asName" />
+				<Param name="string& asPoseType" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ChangePlayerStateToNormal" func="yes">
+			<Overload retVal="void" descr="Reverts player state. Will make the player drop items, detatch from ladders etc.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="char" />
+		<KeyWord name="CheckPoint" func="yes">
+			<Overload retVal="void" descr="Sets a checkpoint and callback triggered on respawn.
+			Callback syntax: void Foo(string &in asName, int alCount)">
+				<Param name="string& asName" />
+				<Param name="string& asStartPos" />
+				<Param name="string& asCallback" />
+				<Param name="string& asDeathHintCat" />
+				<Param name="string& asDeathHintEntry" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="class" />		
+		<KeyWord name="ClearEnemyPatrolNodes" func="yes">
+			<Overload retVal="void" descr="Clears the current path of patrol nodes of the enemy.">
+				<Param name="string& asEnemyName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="ClearSavedMaps" func="yes">
+			<Overload retVal="void" descr="Removes save-data regarding other maps to reduce size of future save files." >
+				<Param name="" />
+			</Overload>
+		</KeyWord>		
+		<KeyWord name="CompleteQuest" func="yes">
+			<Overload retVal="void" descr="Completes a quest.">
+				<Param name="string& asName" />
+				<Param name="string& asNameAndTextEntry" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ConnectEntities" func="yes">
+			<Overload retVal="void" descr="Link the changes in state of one entity to another.
+			Callback syntax: void Foo(string &in asConnectionName, string &in asMainEntity, string &in asConnectEntity, int alState) ">
+				<Param name="string& asName" />
+				<Param name="string& asMainEntity" />
+				<Param name="string& asConnectEntity" />
+				<Param name="bool abInvertStateSent" />
+				<Param name="int alStatesUsed" />
+				<Param name="string& asCallbackFunc - 'Connected'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="const" />
+		<KeyWord name="continue" />
+		<KeyWord name="CreateDataCache" func="yes">
+			<Overload retVal="void" descr="Caches all current textures models until destroy is called.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CreateEntityAtArea" func="yes">
+			<Overload retVal="void" descr="Creates an entity at an area.">
+				<Param name="string& asEntityName" />
+				<Param name="string& asEntityFile" />
+				<Param name="string& asAreaName" />
+				<Param name="bool abFullGameSave" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CreateParticleSystemAtEntity" func="yes">
+			<Overload retVal="void" descr="Creates a particle system on an entity.">
+				<Param name="string& asPSName" />
+				<Param name="string& asPSFile" />
+				<Param name="string& asEntity" />
+				<Param name="bool abSavePS" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="CreateParticleSystemAtEntityExt" func="yes">
+			<Overload retVal="void" descr="Creates a particle system on an entity.">
+				<Param name="string& asPSName" />
+				<Param name="string& asPSFile" />
+				<Param name="string& asEntity" />
+				<Param name="bool abSavePS" />
+				<Param name="float afR" />
+				<Param name="float afG" />
+				<Param name="float afB" />
+				<Param name="float afA" />
+				<Param name="bool abFadeAtDistance" />
+				<Param name="float afFadeMinEnd" />
+				<Param name="float afFadeMinStart" />
+				<Param name="float afFadeMaxStart" />
+				<Param name="float afFadeMaxEnd" />
+			</Overload>
+		</KeyWord>													
+		<KeyWord name="default" />
+		<KeyWord name="DestroyDataCache" func="yes">
+			<Overload retVal="void" descr="Destroys cache created by CreateDataCache().">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DestroyParticleSystem" func="yes">
+			<Overload retVal="void" descr="Destroys a particle system.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DetachFromStickyArea" func="yes">
+			<Overload retVal="void" descr="Detaches everything from a StickyArea.">
+				<Param name="string& asAreaName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="DisableDeathStartSound" func="yes">
+			<Overload retVal="void" descr="Disables the death sound when the player is killed.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="do" />
+		<KeyWord name="double" />
+		<KeyWord name="else" />
+		<KeyWord name="else if" />
+		<KeyWord name="ExitInventory" func="yes">
+			<Overload retVal="void" descr="Exits the inventory by force.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="enum" />
+		<KeyWord name="FadeEnemyToSmoke" func="yes">
+			<Overload retVal="void" descr="Instantly fades an enemy to smoke.">
+				<Param name="string& asName" />
+				<Param name="bool abPlaySound" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeGlobalSoundSpeed" func="yes">
+			<Overload retVal="void" descr="Influences the global sound speed.">
+				<Param name="float afDestSpeed" />
+				<Param name="float afTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeGlobalSoundVolume" func="yes">
+			<Overload retVal="void" descr="Influences the global sound volume.">
+				<Param name="float afDestVolume" />
+				<Param name="float afTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeImageTrailTo" func="yes">
+			<Overload retVal="void" descr="Applies the image trail effect to the screen.">
+				<Param name="float afAmount - 0 default" />
+				<Param name="float afSpeed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeIn" func="yes">
+			<Overload retVal="void" descr="Fades the screen back to normal.">
+				<Param name="float afTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeInSound" func="yes">
+			<Overload retVal="void" descr="Fades in a sound.">
+				<Param name="string& asSoundName" />
+				<Param name="float afFadeTime" />
+				<Param name="bool abPlayStart" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeLightTo" func="yes">
+			<Overload retVal="void" descr="Changes the properties of a light.">
+				<Param name="string& asLightName" />
+				<Param name="float afR" />
+				<Param name="float afG" />
+				<Param name="float afB" />
+				<Param name="float afA" />
+				<Param name="float afRadius -1 RGBAR no change" />
+				<Param name="float afTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeOut" func="yes">
+			<Overload retVal="void" descr="Fades the screen to black.">
+				<Param name="float afTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadePlayerAspectMulTo" func="yes">
+			<Overload retVal="void" descr="Changes the aspect ratio of the camera.">
+				<Param name="float afX - 1 default" />
+				<Param name="float afSpeed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadePlayerFOVMulTo" func="yes">
+			<Overload retVal="void" descr="Changes the field of view of the camera.">
+				<Param name="float afX - 1 default" />
+				<Param name="float afSpeed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadePlayerRollTo" func="yes">
+			<Overload retVal="void" descr="Rotates the position of the camera on the player's body.">
+				<Param name="float afX" />
+				<Param name="float afSpeedMul" />
+				<Param name="float afMaxSpeed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeRadialBlurTo" func="yes">
+			<Overload retVal="void" descr="Applies radial blur effects to the screen.">
+				<Param name="float afSize - 0 default" />
+				<Param name="float afSpeed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="FadeSepiaColorTo" func="yes">
+			<Overload retVal="void" descr="Applies a sepia effect to the screen.">
+				<Param name="float afAmount - 0 default" />
+				<Param name="float afSpeed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="false" />
+		<KeyWord name="float" />
+		<KeyWord name="for" />
+		<KeyWord name="ForceTeslaPigSighting" func="yes">
+			<Overload retVal="void" descr="Forces the specified tesla pig to become visible for a short duration.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>		
+		<KeyWord name="funcdef" />
+		<KeyWord name="GetBodyMass" func="yes">
+			<Overload retVal="float" descr="Gets the mass of the specified body.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEffectVoiceActive" func="yes">
+			<Overload retVal="bool" descr="Returns true if EffectVoices are still active.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEnemyStateName" func="yes">
+			<Overload retVal="string&" descr="Returns the name of the state the enemy is currently in.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntitiesCollide" func="yes">
+			<Overload retVal="bool" descr="Returns true if specified entities collides. Does not support *.">
+				<Param name="string& asEntityA" />
+				<Param name="string& asEntityB" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntityExists" func="yes">
+			<Overload retVal="bool" descr="Returns true if specified entity exists.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntityPosX" func="yes">
+			<Overload retVal="float" descr="Returns x position of specified entity.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntityPosY" func="yes">
+			<Overload retVal="float" descr="Returns y position of specified entity.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetEntityPosZ" func="yes">
+			<Overload retVal="float" descr="Returns z position of specified entity.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetFlashbackIsActive" func="yes">
+			<Overload retVal="bool" descr="Returns true if a flashback is still in effect.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetGlobalVarFloat" func="yes">
+			<Overload retVal="float" descr="Returns a global (cross-map) float variable's value.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetGlobalVarInt" func="yes">
+			<Overload retVal="int" descr="Returns a global (cross-map) int variable's value.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetGlobalVarString" func="yes">
+			<Overload retVal="string&" descr="Returns a global (cross-map) string variable's value.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetLanternActive" func="yes">
+			<Overload retVal="bool" descr="Returns true if the lantern is turned on.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetLeverState" func="yes">
+			<Overload retVal="int" descr="Return the state of a lever (1: at max, -1: at min, 0: otherwise)">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetLocalVarFloat" func="yes">
+			<Overload retVal="float" descr="Returns a local (map-scope) float variable's value.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetLocalVarInt" func="yes">
+			<Overload retVal="int" descr="Returns a local (map-scope) int variable's value.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetLocalVarString" func="yes">
+			<Overload retVal="string&" descr="Returns a local (map-scope) string variable's value.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetPlayerHealth" func="yes">
+			<Overload retVal="float" descr="Returns the Player health amount.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetPlayerLampOil" func="yes">
+			<Overload retVal="float" descr="Returns the Player oil amount.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetPlayerPosX" func="yes">
+			<Overload retVal="float" descr="Returns x position of the player.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetPlayerPosY" func="yes">
+			<Overload retVal="float" descr="Returns y position of the player.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetPlayerPosZ" func="yes">
+			<Overload retVal="float" descr="Returns z position of of the player.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetPlayerSanity" func="yes">
+			<Overload retVal="float" descr="Returns the Player sanity amount.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetPlayerSpeed" func="yes">
+			<Overload retVal="float" descr="Returns Player's speed.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetPlayerYSpeed" func="yes">
+			<Overload retVal="float" descr="Returns the Player's vertical speed.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetPropHealth" func="yes">
+			<Overload retVal="float" descr="Returns the health for a specified entity.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetPropIsInteractedWith" func="yes">
+			<Overload retVal="bool" descr="Returns true if the specified entity is being held by the player.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GetSwingDoorClosed" func="yes">
+			<Overload retVal="bool" descr="Returns true if the specified swing door is closed.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetSwingDoorLocked" func="yes">
+			<Overload retVal="bool" descr="Returns true if the specified swing door is locked.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetSwingDoorState" func="yes">
+			<Overload retVal="int" descr="Return the state of the swing door (1: at max, -1: at min, 0: otherwise).">
+				<Param name="string& asName - 1=angel >70%, 0=between, -1=angel <10%" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GetTimerTimeLeft" func="yes">
+			<Overload retVal="float" descr="Return the amount of time remaining for the given timer.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GiveHint" func="yes">
+			<Overload retVal="void" descr="Displays a hint on the player's screen.">
+				<Param name="string& asName" />
+				<Param name="string& asMessageCat" />
+				<Param name="string& asMessageEntry" />
+				<Param name="float afTimeShown - 0 for auto" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GiveItem" func="yes">
+			<Overload retVal="void" descr="Adds an item to the player's inventory. The item does not have to exist as entity in the world.">
+				<Param name="string& asName" />
+				<Param name="string& asType" />
+				<Param name="string& asSubTypeName" />
+				<Param name="string& asImageName" />
+				<Param name="string& float afAmount" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GiveItemFromFile" func="yes">
+			<Overload retVal="void" descr="Adds a single item to the player's inventory by using it's entity file.">
+				<Param name="string& asName" />
+				<Param name="string& asFileName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="GivePlayerDamage" func="yes">
+			<Overload retVal="void" descr="Reduces the health of the player.">
+				<Param name="float afAmount" />
+				<Param name="string& asType - BloodSplat, Claws or Slash" />
+				<Param name="bool abSpinHead" />
+				<Param name="bool abLethal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GiveSanityBoost" func="yes">
+			<Overload retVal="void" descr="Boosts the player's sanity by a fixed amount.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GiveSanityBoostSmall" func="yes">
+			<Overload retVal="void" descr="Boosts the player's sanity by a fixed amount.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="GiveSanityDamage" func="yes">
+			<Overload retVal="void" descr="Reduces the sanity of the player.">
+				<Param name="float afAmount" />
+				<Param name="bool abUseEffect" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="HasItem" func="yes">
+			<Overload retVal="bool" descr="Returns true if the inventory contains the specified item.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="if" />
+		<KeyWord name="InsanityEventIsActive" func="yes">
+			<Overload retVal="bool" descr="Returns true if the specified insanity event is active.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="int" />
+		<KeyWord name="int8" />
+		<KeyWord name="int16" />
+		<KeyWord name="int32" />
+		<KeyWord name="int64" />
+		<KeyWord name="InteractConnectPropWithMoveObject" func="yes">
+			<Overload retVal="void" descr="Connects a prop with the movement of a MoveObject.">
+				<Param name="string& asName" />
+				<Param name="string& asPropName" />
+				<Param name="string& asMoveObjectName" />
+				<Param name="bool abInteractOnly" />
+				<Param name="bool abInvert" />
+				<Param name="int alStatesUsed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="InteractConnectPropWithRope" func="yes">
+			<Overload retVal="void" descr="Connects a prop with the movement of a rope (E.g. turn wheel to move rope).">
+				<Param name="string& asName" />
+				<Param name="string& asPropName" />
+				<Param name="string& asRopeName" />
+				<Param name="bool abInteractOnly" />
+				<Param name="float afSpeedMul" />
+				<Param name="float afMinSpeed" />
+				<Param name="float afMaxSpeed" />
+				<Param name="bool abInvert" />
+				<Param name="int alStatesUsed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="interface" />
+		<KeyWord name="long" />
+		<KeyWord name="MathAbs" func="yes">
+			<Overload retVal="float " descr="Returns the absolute value of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathAcos" func="yes">
+			<Overload retVal="float " descr="Calculates the arc cosine of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathAsin" func="yes">
+			<Overload retVal="float " descr="Calculates the arc sine of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathAtan" func="yes">
+			<Overload retVal="float " descr="Calculates the arc tangent of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathAtan2" func="yes">
+			<Overload retVal="float " descr="Calculates the arc tangent of afX/afY.">
+				<Param name="float afX" />
+				<Param name="float afY" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathClamp" func="yes">
+			<Overload retVal="float " descr="Returns afX clamped to afMin and afMax. ">
+				<Param name="float afX" />
+				<Param name="float afMin" />
+				<Param name="float afMax" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathCos" func="yes">
+			<Overload retVal="float " descr="Calculates the cosine of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathMax" func="yes">
+			<Overload retVal="float " descr="Returns the largest value.">
+				<Param name="float afA" />
+				<Param name="float afB" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathMin" func="yes">
+			<Overload retVal="float " descr="Returns the smallest value.">
+				<Param name="float afA" />
+				<Param name="float afB" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathPow" func="yes">
+			<Overload retVal="float " descr="Returns afBase raised to the power of afExp.">
+				<Param name="float afBase" />
+				<Param name="float afExp" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathSin" func="yes">
+			<Overload retVal="float " descr="Calculates the sine of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathSqrt" func="yes">
+			<Overload retVal="float " descr="Calculates the square root of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MathTan" func="yes">
+			<Overload retVal="float " descr="Calculates the tangent of afX.">
+				<Param name="float afX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MovePlayerForward" func="yes">
+			<Overload retVal="void" descr="Moves the player forward by specified amount in one timestep.">
+				<Param name="float afAmount" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="MovePlayerHeadPos" func="yes">
+			<Overload retVal="void" descr="Changes the position of the camera on the player's body.">
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+				<Param name="float afSpeed" />
+				<Param name="float afSlowDownDist" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="null" />
+		<KeyWord name="PlaceEntityAtEntity" func="yes">
+			<Overload retVal="void" descr="Places the specifed entity at the position of another enity.">
+				<Param name="string& asName" />
+				<Param name="string& asTargetEntity" />
+				<Param name="string& asTargetBodyName" />
+				<Param name="bool abUseRotation" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PlayGuiSound" func="yes">
+			<Overload retVal="void" descr="Plays a sound, not using 3D.">
+				<Param name="string& asSoundFile" />
+				<Param name="float afVolume" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PlayMusic" func="yes">
+			<Overload retVal="void" descr="Plays a music file.">
+				<Param name="string& asMusicFile" />
+				<Param name="bool abLoop" />
+				<Param name="float afVolume" />
+				<Param name="float afFadeTime" />
+				<Param name="int alPrio" />
+				<Param name="bool abResume" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PlayPropAnimation" func="yes">
+			<Overload retVal="void" descr="Makes the prop play an animation, triggering a callback when finished.
+			Callback syntax: void Foo(string &in asProp)">
+				<Param name="string& asProp" />
+				<Param name="string& asAnimation" />
+				<Param name="float afFadeTime" />
+				<Param name="bool abLoop" />
+				<Param name="string& asCallback" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PlaySoundAtEntity" func="yes">
+			<Overload retVal="void" descr="Creates a sound on an entity.">
+				<Param name="string& asSoundName" />
+				<Param name="string& asSoundFile" />
+				<Param name="string& asEntity" />
+				<Param name="float afFadeTime" />
+				<Param name="bool abSaveSound" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PreloadParticleSystem" func="yes">
+			<Overload retVal="void" descr="Preloads a particle system.">
+				<Param name="string& asPSFile" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="PreloadSound" func="yes">
+			<Overload retVal="void" descr="Preloads a sound.">
+				<Param name="string& asSoundFile" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="Print" func="yes">
+			<Overload retVal="void" descr="Prints a string to the log.">
+				<Param name="string& asString" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="private" />
+		<KeyWord name="ProgLog" func="yes">
+			<Overload retVal="void" descr="Undocumented.">
+				<Param name="string& asLevel" />
+				<Param name="string& asMessage" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="QuestIsAdded" func="yes">
+			<Overload retVal="bool" descr="Returns true if the specified quest is added.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="QuestIsCompleted" func="yes">
+			<Overload retVal="bool" descr="Returns true if the specified quest is complete.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RandFloat" func="yes">
+			<Overload retVal="float" descr="Generates a random float. Inclusive lower & upper bounds.">
+				<Param name="float afMin" />
+				<Param name="float afMax" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RandInt" func="yes">
+			<Overload retVal="int" descr="Generates a random integer. Inclusive lower & upper bounds.">
+				<Param name="int alMin" />
+				<Param name="int alMax" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveAttachedPropFromProp" func="yes">
+			<Overload retVal="void" descr="Detaches a prop from a prop.">
+				<Param name="string& asPropName" />
+				<Param name="string& asAttachName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveCombineCallback" func="yes">
+			<Overload retVal="void" descr="Removes a combine callback. See also: AddCombineCallback">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveEntityCollideCallback" func="yes">
+			<Overload retVal="void" descr="Removes an EntityCollideCallback. asChildName does not support *.">
+				<Param name="string& asParentName" />
+				<Param name="string& asChildName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveHint" func="yes">
+			<Overload retVal="void" descr="Removes a hint.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveItem" func="yes">
+			<Overload retVal="void" descr="Removes an item from the player's inventory.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveTimer" func="yes">
+			<Overload retVal="void" descr="Removes a timer.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RemoveUseItemCallback" func="yes">
+			<Overload retVal="void" descr="Removes an item callback.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ReplaceEntity" func="yes">
+			<Overload retVal="void" descr="Removes the specified entity and places a new entity at its location.">
+				<Param name="string& asName" />
+				<Param name="string& asBodyName" />
+				<Param name="string& asNewEntityName" />
+				<Param name="string& asNewEntityFile" />
+				<Param name="bool abFullGameSave" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ResetProp" func="yes">
+			<Overload retVal="void" descr="Resets an entity's state to how it was when the entity was created.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="return" />
+		<KeyWord name="ReturnOpenJournal" func="yes">
+			<Overload retVal="void" descr="Only called in the pickup diary callback. If true the journal displays the entry.">
+				<Param name="bool abOpenJournal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="RotatePropToSpeed" func="yes">
+			<Overload retVal="void" descr="Rotates the prop up to a set speed.">
+				<Param name="string& asName" />
+				<Param name="float afAcc" />
+				<Param name="float afGoalSpeed" />
+				<Param name="float afAxisX" />
+				<Param name="float afAxisY" />
+				<Param name="float afAxisZ" />
+				<Param name="bool abResetSpeed" />
+				<Param name="string& asOffsetArea" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ScriptDebugOn" func="yes">
+			<Overload retVal="bool" descr="Returns true if debug mode is enabled.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetAllowStickyAreaAttachment" func="yes">
+			<Overload retVal="void" descr="Set if a StickyArea should allow entites to become attached/stuck.">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetBodyMass" func="yes">
+			<Overload retVal="void" descr="Sets the mass of the specified body.">
+				<Param name="string& asName" />
+				<Param name="float afMass" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetButtonSwitchedOn" func="yes">
+			<Overload retVal="void" descr="Set a button entity switched on/off">
+				<Param name="string& asName" />
+				<Param name="bool abSwitchedOn" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetDeathHint" func="yes">
+			<Overload retVal="void" descr="Sets the message that appears when the player dies.">
+				<Param name="string& asTextCategory" />
+				<Param name="string& asTextEntry" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEffectVoiceOverCallback" func="yes">
+			<Overload retVal="void" descr="Sets the function to be called when the EffectVoices are finished.
+			Callback syntax: void Foo()">
+				<Param name="string& asFunc" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEnemyDisabled" func="yes">
+			<Overload retVal="void" descr="Set whether or not an Enemy is Disabled">
+				<Param name="string& asName" />
+				<Param name="bool abDisabled" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEnemyDisableTriggers" func="yes">
+			<Overload retVal="void" descr="Enables or disables enemy triggers. If disabled, the enemy will ignore the player.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEnemyIsHallucination" func="yes">
+			<Overload retVal="void" descr="Set if the enemy a hallucination or not.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEnemySanityDecreaseActive" func="yes">
+			<Overload retVal="void" descr="Enables/disables the sanity drain of the specified entity.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityActive" func="yes">
+			<Overload retVal="void" descr="Set whether or not an entity is active.">
+				<Param name="string& asName" />
+				<Param name="bool abActive" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityCallbackFunc" func="yes">
+			<Overload retVal="void" descr="Calls a function when certain entity events happen.
+			Callback syntax: void Foo(string &in asEntity, string &in type) - Type depends on entity type, includes: OnPickup, Break, OnIgnite">
+				<Param name="string& asName" />
+				<Param name="string& asCallback" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityConnectionStateChangeCallback" func="yes">
+			<Overload retVal="void" descr="A callback called when ever the connection state changes (e.g. lever pulled)
+			Callback syntax: void Func(string &in asEntity, int alState) - alState 1: at max, -1: at min, 0: otherwise">
+				<Param name="string& asName" />
+				<Param name="string& asCallback - 'StateChange'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityCustomFocusCrossHair" func="yes">
+			<Overload retVal="void" descr="Changes the crosshair that is used when focusing an entity.">
+				<Param name="string& asName" />
+				<Param name="string& asCrossHair - Default, Grab, Push, Ignite, Pick, LevelDoor, Ladder" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityInteractionDisabled" func="yes">
+			<Overload retVal="void" descr="Allow/Disallow interaction with an entity.">
+				<Param name="string& asName" />
+				<Param name="bool abDisabled" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityPlayerInteractCallback" func="yes">
+			<Overload retVal="void" descr="Calls a function when the player interacts with a certain entity.
+			Callback syntax: void Foo(string &in asEntity)">
+				<Param name="string& asName" />
+				<Param name="string& asCallback" />
+				<Param name="bool abRemoveOnInteraction" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityPlayerLookAtCallback" func="yes">
+			<Overload retVal="void" descr="Calls a function when the player looks at a certain entity.
+			Callback syntax: void Foo(string &in asEntity, int alState) - alState 1:looking -1:not looking">
+				<Param name="string& asName" />
+				<Param name="string& asCallback" />
+				<Param name="bool abRemoveWhenLookedAt" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityPos" func="yes">
+			<Overload retVal="void" descr="Set the position of an entity.">
+				<Param name="string& asName" />
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetEntityVisible" func="yes">
+			<Overload retVal="void" descr="Shows/Hides the mesh of the specified entity.">
+				<Param name="string& asName" />
+				<Param name="bool abVisible" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetFogActive" func="yes">
+			<Overload retVal="void" descr="Enables\Disables the global fog.">
+				<Param name="bool abActive" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetFogColor" func="yes">
+			<Overload retVal="void" descr="Sets global fog color">
+				<Param name="float afR" />
+				<Param name="float afG" />
+				<Param name="float afB" />
+				<Param name="float afA" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetFogProperties" func="yes">
+			<Overload retVal="void" descr="Sets global fog properties">
+				<Param name="float afStart" />
+				<Param name="float afEnd" />
+				<Param name="float afFalloffExp" />
+				<Param name="bool abCulling" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGlobalVarFloat" func="yes">
+			<Overload retVal="void" descr="Set the value of a global (cross-map) float">
+				<Param name="string& asName" />
+				<Param name="float afVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGlobalVarInt" func="yes">
+			<Overload retVal="void" descr="Set the value of a global (cross-map) int">
+				<Param name="string& asName" />
+				<Param name="int alVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetGlobalVarString" func="yes">
+			<Overload retVal="void" descr="Set the value of a global (cross-map) string">
+				<Param name="string& asName" />
+				<Param name="const string& asVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetInDarknessEffectsActive" func="yes">
+			<Overload retVal="void" descr="Sets if standing in darkness turns on night vision and drains sanity.">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetInsanitySetEnabled" func="yes">
+			<Overload retVal="void" descr="Enable/Disable an InsanitySet.">
+				<Param name="string& asSet" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetInventoryDisabled" func="yes">
+			<Overload retVal="void" descr="Enable/Disable use of inventory.">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetInventoryMessage" func="yes">
+			<Overload retVal="void" descr="Adds a message at the bottom of the inventory screen.">
+				<Param name="string& asTextCategory" />
+				<Param name="string& asTextEntry" />
+				<Param name="float afTime - 0 auto" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLampLit" func="yes">
+			<Overload retVal="void" descr="Turn on/off a lamp entity.">
+				<Param name="string& asName" />
+				<Param name="bool abLit" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLanternActive" func="yes">
+			<Overload retVal="void" descr="Draw/Holster the lantern.">
+				<Param name="bool abX" />
+				<Param name="bool abUseEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLanternDisabled" func="yes">
+			<Overload retVal="void" descr="Enables/Disables the player's ability to use the lantern.">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLanternLitCallback" func="yes">
+			<Overload retVal="void" descr="Sets the function to call when the player uses the lantern.
+			Callback syntax: void Foo(bool abLit)">
+				<Param name="string& asCallback" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLevelDoorLocked" func="yes">
+			<Overload retVal="void" descr="Locks/Unlocks a level door.">
+				<Param name="string& asName" />
+				<Param name="bool abLocked" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLevelDoorLockedSound" func="yes">
+			<Overload retVal="void" descr="Set the sound played when interacting with a locked level door.">
+				<Param name="string& asName" />
+				<Param name="string& asSound" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLevelDoorLockedText" func="yes">
+			<Overload retVal="void" descr="Set the shown message when interacting with a locked level door.">
+				<Param name="string& asName" />
+				<Param name="string& asTextCat" />
+				<Param name="string& asTextEntry" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLeverInteractionDisablesStuck" func="yes">
+			<Overload retVal="void" descr="Enables/Disables the ability for the player to make the lever unstuck when using it.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLeverStuckState" func="yes">
+			<Overload retVal="void" descr="Makes a lever stuck in a certain state. alState 0:not stuck 1:at max -1:at min">
+				<Param name="string& asName" />
+				<Param name="int alState" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLightFlickerActive" func="yes">
+			<Overload retVal="void" descr="Enables/disables flickering on a light.">
+				<Param name="string& asLightName" />
+				<Param name="bool abActive" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLightVisible" func="yes">
+			<Overload retVal="void" descr="Enables/disables a light.">
+				<Param name="string& asLightName" />
+				<Param name="bool abVisible" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLocalVarFloat" func="yes">
+			<Overload retVal="void" descr="Set the value of a local (map-scope) float">
+				<Param name="string& asName" />
+				<Param name="float afVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLocalVarInt" func="yes">
+			<Overload retVal="void" descr="Set the value of a local (map-scope) int">
+				<Param name="string& asName" />
+				<Param name="int alVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetLocalVarString" func="yes">
+			<Overload retVal="void" descr="Set the value of a local (map-scope) string">
+				<Param name="string& asName" />
+				<Param name="const string& asVal" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMapDisplayNameEntry" func="yes">
+			<Overload retVal="void" descr="Sets the map name shown in save file names.">
+				<Param name="string& asNameEntry" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMessage" func="yes">
+			<Overload retVal="void" descr="Displays a message on the screen.">
+				<Param name="string& asTextCategory" />
+				<Param name="string& asTextEntry" />
+				<Param name="float afTime - 0 auto" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMoveObjectState" func="yes">
+			<Overload retVal="void" descr="Moves an object to a certain state. afState - 0:closed, 1:opened but other values accepted." >
+				<Param name="string& asName" />
+				<Param name="float afState" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMoveObjectStateExt" func="yes">
+			<Overload retVal="void" descr="Moves an object to a certain state. afState - 0:closed, 1:opened but other values accepted.">
+				<Param name="string& asName" />
+				<Param name="float afState" />
+				<Param name="float afAcc" />
+				<Param name="float afMaxSpeed" />
+				<Param name="float afSlowdownDist" />
+				<Param name="float abResetSpeed" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMultiSliderCallback" func="yes">
+			<Overload retVal="void" descr="Calls a function when state changes.
+			Callback syntax: void Foo(string &in asEntity, int alState)">
+				<Param name="string& asName" />
+				<Param name="string& asCallback" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetMultiSliderStuckState" func="yes">
+			<Overload retVal="void" descr="Makes a MultiSlider stuck in a certain state.">
+				<Param name="string& asName" />
+				<Param name="int alStuckState" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetNPCAwake" func="yes">
+			<Overload retVal="void" descr="Activates/Deactives npc behaviour">
+				<Param name="string& asName" />
+				<Param name="bool abAwake" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetNPCFollowPlayer" func="yes">
+			<Overload retVal="void" descr="Enable/Disable the NPC's head following the player's movement.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetNumberOfQuestsInMap" func="yes">
+			<Overload retVal="void" descr="Undocumented.">
+				<Param name="int alNumberOfQuests" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerActive" func="yes">
+			<Overload retVal="void" descr="Enable/Disable player controlled movement.">
+				<Param name="bool abActive" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerCrouchDisabled" func="yes">
+			<Overload retVal="void" descr="Enable/Disable crouching">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerCrouching" func="yes">
+			<Overload retVal="void" descr="Make the player stand or crouch.">
+				<Param name="bool abCrouch" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerFallDamageDisabled" func="yes">
+			<Overload retVal="void" descr="Disables/Enables fall damage.">
+				<Param name="bool abDisabled" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerJumpForceMul" func="yes">
+			<Overload retVal="void" descr="Sets a multiplier for how much force is applied on the player when jumping.">
+				<Param name="float afMul - Default 1" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerHealth" func="yes">
+			<Overload retVal="void" descr="Set the player health.">
+				<Param name="float afHealth" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerJumpDisabled" func="yes">
+			<Overload retVal="void" descr="Enable/Disable jumping.">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerLampOil" func="yes">
+			<Overload retVal="void" descr="Set the player's oil amount.">
+				<Param name="float afOil" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerLookSpeedMul" func="yes">
+			<Overload retVal="void" descr="Set the player's look speed multiplier">
+				<Param name="float afMul - default 1" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerMoveSpeedMul" func="yes">
+			<Overload retVal="void" descr="Set the player's move speed multiplier">
+				<Param name="float afMul - default 1" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerPermaDeathSound" func="yes">
+			<Overload retVal="void" descr="Undocumented. Justine only.">
+				<Param name="string& asFile" />
+			</Overload>
+		</KeyWord>		
+		<KeyWord name="SetPlayerPos" func="yes">
+			<Overload retVal="void" descr="Set Player Position.">
+				<Param name="float afX" />
+				<Param name="float afY" />
+				<Param name="float afZ" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerRunSpeedMul" func="yes">
+			<Overload retVal="void" descr="Set the player's run speed multiplier">
+				<Param name="float afMul - default 1" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPlayerSanity" func="yes">
+			<Overload retVal="void" descr="Set the player's sanity level.">
+				<Param name="float afSanity" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPropActiveAndFade" func="yes">
+			<Overload retVal="void" descr="Activate/Deactivate a prop and fade it in/out">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+				<Param name="float afFadeTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPropEffectActive" func="yes">
+			<Overload retVal="void" descr="Activate/Deactivate a prop's effect">
+				<Param name="string& asName" />
+				<Param name="bool abActive" />
+				<Param name="bool abFadeAndPlaySounds" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPropHealth" func="yes">
+			<Overload retVal="void" descr="Set the health of a prop">
+				<Param name="string& asName" />
+				<Param name="float afHealth" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPropObjectStuckState" func="yes">
+			<Overload retVal="void" descr="Makes a prop stuck in a certain state. alState 0:not stuck 1:at max -1:at min">
+				<Param name="string& asName" />
+				<Param name="int alState - 0=lose 1=max -1=min" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetPropStaticPhysics" func="yes">
+			<Overload retVal="void" descr="Activate/Deactivate static physics for a prop">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetRadialBlurStartDist" func="yes">
+			<Overload retVal="void" descr="Determines at which distance the radial blur effects appear.">
+				<Param name="float afStartDist" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetSanityDrainDisabled" func="yes">
+			<Overload retVal="void" descr="Enables/Disables sanity drain from darkness, monsters, etc.">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetSkyBoxActive" func="yes">
+			<Overload retVal="void" descr="Enables\Disables the skybox.">
+				<Param name="bool abActive" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetSkyBoxColor" func="yes">
+			<Overload retVal="void" descr="Set the color of the skybox.">
+				<Param name="float afR" />
+				<Param name="float afG" />
+				<Param name="float afB" />
+				<Param name="float afA" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetSkyBoxTexture" func="yes">
+			<Overload retVal="void" descr="Set the texture of the skybox.">
+				<Param name="string& asTexture" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetSwingDoorClosed" func="yes">
+			<Overload retVal="void" descr="Closes a swing door.">
+				<Param name="string& asName" />
+				<Param name="bool abClosed" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetSwingDoorDisableAutoClose" func="yes">
+			<Overload retVal="void" descr="Activates/Deactivates auto-close behaviour when a door is nearly closed.">
+				<Param name="string& asName" />
+				<Param name="bool abDisableAutoClose" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetSwingDoorLocked" func="yes">
+			<Overload retVal="void" descr="Locks/Unlocks a swing door">
+				<Param name="string& asName" />
+				<Param name="bool abLocked" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetTeslaPigEasyEscapeDisabled" func="yes">
+			<Overload retVal="void" descr="Enables/disables functionality to let the player escape easier.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="SetTeslaPigFadeDisabled" func="yes">
+			<Overload retVal="void" descr="Sets if the specified tesla pig should make the screen turn black when the player is close.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetTeslaPigSoundDisabled" func="yes">
+			<Overload retVal="void" descr="Enables/disables the tesla pig proximity sound for the specified manpig.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="SetupLoadScreen" func="yes">
+			<Overload retVal="void" descr="Determines which loading screen will be shown when changing maps.">
+				<Param name="string& asTextCat" />
+				<Param name="string& asTextEntry" />
+				<Param name="int alRandomNum - > 1 for random suffix XX" />
+				<Param name="string& asImageFile" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetWheelAngle" func="yes">
+			<Overload retVal="void" descr="Sets/Spins the wheel to a certain angle">
+				<Param name="string& asName" />
+				<Param name="float afAngle" />
+				<Param name="bool abAutoMove" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetWheelInteractionDisablesStuck" func="yes">
+			<Overload retVal="void" descr="Enables/Disables the ability for the player to make the wheel unstuck when using it.">
+				<Param name="string& asName" />
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="SetWheelStuckState" func="yes">
+			<Overload retVal="void" descr="Makes a wheel stuck in a certain state. alState 0:not stuck 1:at max -1:at min">
+				<Param name="string& asName" />
+				<Param name="int alState" />
+				<Param name="bool abEffects" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="short" />
+		<KeyWord name="ShowEnemyPlayerPosition" func="yes">
+			<Overload retVal="void" descr="Forces an enemy notice and run towards the player.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="ShowPlayerCrossHairIcons" func="yes">
+			<Overload retVal="void" descr="Enables/Disables the icons when a player has something in focus.">
+				<Param name="bool abX" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartCredits" func="yes">
+			<Overload retVal="void" descr="Starts the end credits screen.">
+				<Param name="string& asMusic" />
+				<Param name="bool abLoopMusic" />
+				<Param name="string& asTextCat" />
+				<Param name="string& asTextEntry" />
+				<Param name="int alEndNum" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartDemoEnd" func="yes">
+			<Overload retVal="void" descr="Starts the end images that are used in the demo.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartEffectEmotionFlash" func="yes">
+			<Overload retVal="void" descr="Fades the screen to white and shows a text message.">
+				<Param name="string& asTextCat" />
+				<Param name="string& asTextCat" />
+				<Param name="string& asSound" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartEffectFlash" func="yes">
+			<Overload retVal="void" descr="Fades the screen to white.">
+				<Param name="float afFadeIn" />
+				<Param name="float afWhite" />
+				<Param name="float afFadeOut" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartPlayerLookAt" func="yes">
+			<Overload retVal="void" descr="Forces the player to look at a certain entity until StopPlayerLookAt is used.">
+				<Param name="string& asEntityName" />
+				<Param name="float afSpeedMul" />
+				<Param name="float afMaxSpeed" />
+				<Param name="string& asAtTargetCallback  - 'LookAt'" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartPlayerSpawnPS" func="yes">
+			<Overload retVal="void" descr="Undocumented.">
+				<Param name="string& asPSFile" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartRandomInsanityEvent" func="yes">
+			<Overload retVal="void" descr="Starts a random insanity event from the available sets.">
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StartScreenShake" func="yes">
+			<Overload retVal="void" descr="Shakes the screen.">
+				<Param name="float afAmount" />
+				<Param name="float afTime" />
+				<Param name="float afFadeInTime" />
+				<Param name="float afFadeOutTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="static" />
+		<KeyWord name="StopAllEffectVoices" func="yes">
+			<Overload retVal="void" descr="Stops all voices and calls the EffectVoiceOverCallback.">
+				<Param name="float afFadeOutTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StopMusic" func="yes">
+			<Overload retVal="void" descr="Stops music.">
+				<Param name="float afFadeTime" />
+				<Param name="int alPrio" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StopPlayerLookAt" func="yes">
+			<Overload retVal="void" descr="Stops forcing the player to look at a specific entity (See also: StartPlayerLookAt)">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StopPlayerSpawnPS" func="yes">
+			<Overload retVal="void" descr="Undocumented.">
+				<Param name="" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StopPropMovement" func="yes">
+			<Overload retVal="void" descr="Stops all movement of a prop.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StopSound" func="yes">
+			<Overload retVal="void" descr="Stops a sound.">
+				<Param name="string& asSoundName" />
+				<Param name="float afFadeTime" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="string" />
+		<KeyWord name="StringContains" func="yes">
+			<Overload retVal="bool" descr="True if specified string contains the specified sub-string.">
+				<Param name="string& asString" />
+				<Param name="string& asSubString" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="StringSub" func="yes">
+			<Overload retVal="string&" descr="Returns the specified substring in a string.">
+				<Param name="string& asString" />
+				<Param name="int alStart" />
+				<Param name="int alCount" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StringToBool" func="yes">
+			<Overload retVal="bool" descr="Converts the string to a bool if possible, otherwise returns false.">
+				<Param name="string& asString" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StringToFloat" func="yes">
+			<Overload retVal="float" descr="Converts the string to a float if possible, otherwise returns 0.">
+				<Param name="string& asString" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="StringToInt" func="yes">
+			<Overload retVal="int" descr="Converts the string to an int if possible, otherwise returns 0.">
+				<Param name="string& asString" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="super" />
+		<KeyWord name="switch" />
+		<KeyWord name="TeleportEnemyToEntity" func="yes">
+			<Overload retVal="void" descr="Instantly teleports the enemy to the specified entity.">
+				<Param name="string& asEnemyName" />
+				<Param name="string& asTargetEntity" />
+				<Param name="string& asTargetBody" />
+				<Param name="bool abChangeY" />
+			</Overload>
+		</KeyWord>
+		<KeyWord name="TeleportEnemyToNode" func="yes">
+			<Overload retVal="void" descr="Instantly teleports the enemy to the specified PathNode.">
+				<Param name="string& asEnemyName" />
+				<Param name="string& asNodeName" />
+				<Param name="bool abChangeY" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="TeleportPlayer" func="yes">
+			<Overload retVal="void" descr="Instantly teleports the player to the target StartPos area.">
+				<Param name="string& asStartPosName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="this" />
+		<KeyWord name="true" />
+		<KeyWord name="typedef" />
+		<KeyWord name="uint" />
+		<KeyWord name="uint8" />
+		<KeyWord name="uint16" />
+		<KeyWord name="uint32" />
+		<KeyWord name="uint64" />		
+		<KeyWord name="UnBlockHint" func="yes">
+			<Overload retVal="void" descr="Unblocks a hint.">
+				<Param name="string& asName" />
+			</Overload>
+		</KeyWord>	
+		<KeyWord name="void" />
+		<KeyWord name="while" />
+	</AutoComplete>
+</NotepadPlus>
