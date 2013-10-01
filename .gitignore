@@ -213,3 +213,13 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Amnesia files
+custom_story_settings.cfg
+extra_english.lang
+maps/*
+mcpp-2.7.2-bin
+PreProcess.bat
+errors.txt
+BuildScripts.bat
+TestScripts/*
