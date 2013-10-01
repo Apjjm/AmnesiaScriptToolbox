@@ -3,7 +3,7 @@
 	<AutoComplete language="HPS">
 		<Environment ignoreCase="yes" startFunc="(" stopFunc=")" paramSeparator="," terminal=";" additionalWordChar=""/>
 		<KeyWord name="AddAttachedPropToProp" func="yes">
-			<Overload retVal="void" descr="Bugged & Depeciated. Use AttachPropToProp instead.">
+			<Overload retVal="void" descr="Depreciated. Use AttachPropToProp instead.">
 				<Param name="string& asPropName" />
 				<Param name="string& asAttachName" />
 				<Param name="string& asAttachFile" />
