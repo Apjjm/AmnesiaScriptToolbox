@@ -165,8 +165,20 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 	
 	void setCol(int colIndex, float[] col) {
 		m[colIndex] = col[0];
-		m[colIndex+1] = col[0];
-		m[colIndex+2] = col[0];
+		m[colIndex+1] = col[1];
+		m[colIndex+2] = col[2];
+	}
+	
+	void setRow(int rowIndex, Vec3 row) {
+		m[3*rowIndex] = row.x;
+		m[3*rowIndex+1] = row.y;
+		m[3*rowIndex+2] = row.z;
+	}
+	
+	void setCol(int colIndex, Vec3 col) {
+		m[colIndex] = col.x;
+		m[colIndex+1] = col.y;
+		m[colIndex+2] = col.z;
 	}
 	
 	float get(int row, int col) const {
@@ -231,6 +243,18 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 		return fCompare(m[0],1.0f) && fCompare(m[1],1.0f) && fCompare(m[2],1.0f) 
 		    && fCompare(m[3],1.0f) && fCompare(m[4],1.0f) && fCompare(m[5],1.0f)
 			&& fCompare(m[6],1.0f) && fCompare(m[7],1.0f) && fCompare(m[8],1.0f); 
+	}
+	
+	void swapRows(int row1, int row2) {
+		float[] temp = getRow(row1);
+		setRow(row1,getRow(row2));
+		setRow(row2,temp);
+	}
+	
+	void swapCols(int col1, int col2) {
+		float[] temp = getCol(col1);
+		setCol(col1,getCol(col2));
+		setCol(col2,temp);
 	}
 	
 	//////////////////////////////////////////////////
