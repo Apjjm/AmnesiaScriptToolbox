@@ -2,15 +2,15 @@
 #define LIB_GETPLAYERVELOCITY_LHPS
 
 #include "../Math/Vector3.lhps"
+#include "../Math/Constants.lhps"
 
 float __gpv_x, __gpv_y, __gpv_z;
 bool __gpv_started = false;
-void __gpv_loopfunc(string& in str)
-{
+void __gpv_loopfunc(string& in str) {
     __gpv_x = GetPlayerPosX();
     __gpv_y = GetPlayerPosY();
     __gpv_z = GetPlayerPosZ();
-    AddTimer("__gpv_looptimer", 0.0166f, "__gpv_loopfunc");
+    AddTimer("__gpv_looptimer", GAME_TIMESTEP, "__gpv_loopfunc");
 }
 
 // Usage:
@@ -19,8 +19,7 @@ void __gpv_loopfunc(string& in str)
 //
 // Params are &out references, their value will be the player velocity along
 // that axis after GetPlayerVelocity returns.
-Vec3 GetPlayerVelocity()
-{
+Vec3 GetPlayerVelocity() {
     if(!__gpv_started) {
         __gpv_loopfunc("");
         __gpv_started = true;
@@ -30,7 +29,7 @@ Vec3 GetPlayerVelocity()
     _x = (GetPlayerPosX() - __gpv_x);
     _y = (GetPlayerPosY() - __gpv_y);
     _z = (GetPlayerPosZ() - __gpv_z);
-    return Vec3(_x / 0.0166f, _y / 0.0166f, _z / 0.0166f);
+    return Vec3(_x * GAME_INV_TIMESTEP, _y * GAME_INV_TIMESTEP, _z * GAME_INV_TIMESTEP);
 }
 
 #endif // LIB_GETPLAYERVELOCITY_LHPS
