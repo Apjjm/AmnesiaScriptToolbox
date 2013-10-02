@@ -85,6 +85,16 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	//////////////////////////////////////////////////
 	// Vector arithmetic
 	//////////////////////////////////////////////////
+	
+	//Compute a dyadic product using input vector
+	Matrix dyadic(const Vec3& in vector) const {
+		float[] m = float[](9);
+		m[0]=x*vector.x; m[1]=x*vector.y; m[2]=x*vector.z;
+		m[3]=y*vector.x; m[4]=y*vector.y; m[5]=y*vector.z;
+		m[6]=z*vector.x; m[7]=z*vector.y; m[8]=z*vector.z;
+		return Matrix(m);
+	}
+	
 	float dot(const Vec3& in vector) const {
 		return x * vector.x + y * vector.y + z * vector.z;
 	}
