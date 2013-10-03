@@ -1,0 +1,34 @@
+#ifndef LIB_GETENTITYROTATION_LHPS
+#define LIB_GETENTITYROTATION_LHPS
+#include "../Math/Vector3.lhps"
+#include "../Math/Matrix.lhps"
+
+//Get the rotation of a prop (Warning: This is quite slow!)
+Vec3 GetEntityRotation(const string& in ent) {
+	//Determine entity position vector
+	Vec3 entPos(GetEntityPosX(ent),GetEntityPosY(ent),GetEntityPosZ(ent));
+	
+	//Determine world axes after entity rotation
+	float AXIS_LENGTH = 100.0f; //Non-unit axes for greater precision
+	AttachPropToProp(ent,ent + "_rx","block_box_unit.ent",AXIS_LENGTH,0,0,0,0,0);
+	AttachPropToProp(ent,ent + "_ry","block_box_unit.ent",0,AXIS_LENGTH,0,0,0,0);
+	AttachPropToProp(ent,ent + "_rz","block_box_unit.ent",0,0,AXIS_LENGTH,0,0,0);
+	Vec3 aX(GetEntityPosX(ent+"_rx"),GetEntityPosY(ent+"_rx"),GetEntityPosZ(ent+"_rx"));
+	Vec3 aY(GetEntityPosX(ent+"_ry"),GetEntityPosY(ent+"_ry"),GetEntityPosZ(ent+"_ry"));
+	Vec3 aZ(GetEntityPosX(ent+"_rz"),GetEntityPosY(ent+"_rz"),GetEntityPosZ(ent+"_rz"));
+	RemoveAttachedPropFromProp(ent,ent + "_rx");
+	RemoveAttachedPropFromProp(ent,ent + "_ry");
+	RemoveAttachedPropFromProp(ent,ent + "_rz");
+	
+	//Create rotation matrix from axes
+	Matrix r;
+	r.setRow(0,(aX-entPos).norm());
+	r.setRow(1,(aY-entPos).norm());
+	r.setRow(2,(aZ-entPos).norm());
+
+	//Return euler angles for world->entity rotation
+	return -Vec3(r.getEulerAnglesXYZ());
+}
+
+
+#endif // LIB_GETENTITYROTATION_LHPS
