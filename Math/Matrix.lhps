@@ -108,38 +108,46 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 	//////////////////////////////////////////////////
 	// Rotation Matricies
 	//////////////////////////////////////////////////
-	void setRotation(float eulerX, float eulerY, float eulerZ) {
+	void setRotationXYZ(float eulerX, float eulerY, float eulerZ) {
 		float cx = MathCos(eulerX * M_DEGTORAD);
 		float sx = MathSin(eulerX * M_DEGTORAD); 	
 		float cy = MathCos(eulerY * M_DEGTORAD);
 		float sy = MathSin(eulerY * M_DEGTORAD); 
 		float cz = MathCos(eulerZ * M_DEGTORAD);
 		float sz = MathSin(eulerZ * M_DEGTORAD); 		
-		m[0]= cy*cz           ; m[1]= -cy*sz          ; m[2]= -sy   ;//   |CE     -CF     -D|
-		m[3]= cx*sz - sx*sy*cz; m[4]= cx*cz - sx*sy*sz; m[5]= -sx*cy;//M =|AF-BDE AE-BDF -BC|
-		m[6]= sx*sz + cx*sy*cz; m[7]= sx*cz - cx*sy*sz; m[8]= cx*cy ;//	  |BF+ADE BE-ADF  AC| 
+		m[0]= cy*cz           ; m[1]= -cy*sz          ; m[2]= sy;
+		m[3]= cx*sz + sx*sy*cz; m[4]= cx*cz - sx*sy*sz; m[5]= -sx*cy;
+		m[6]= sx*sz - cx*sy*cz; m[7]= sx*cz + cx*sy*sz; m[8]= cx*cy;
 	}
 	
-	float[] getEulerAngles() const {		
-		float aX = 0.0f;
-		float aY = -MathAsin(m[2]);
-		float aZ = 0.0f;
-	
-		//Check for gimbal lock
-		float cy = -MathCos(aY);
-		if(fCompare(cy,0.0f))
+	float[] getEulerAnglesXYZ() const {		
+		
+		float rx; float ry; float rz;
+		
+		if(fCompare(m[2],1.0f))
 		{
-			//gimbal lock has occurred
-			aZ = MathAtan2(m[4],m[3]);
+			//Not a unique soultion
+			rx = -MathAtan2(m[3],m[4]);
+			ry = M_HALF_PI;
+			rz = 0.0f;
 		}
 		else
 		{
-			//No gimbal lock
-			aX = MathAtan2(m[8] / cy, -m[5] / cy);
-			aZ = MathAtan2(m[0] / cy, -m[1] / cy);
+			if(fCompare(m[2],-1.0f))
+			{
+				//Not a unique solution
+				rx = -MathAtan2(m[3],m[4]);
+				ry = -M_HALF_PI;
+				rz = 0.0f;
+			}
+			else
+			{
+				rx = MathAtan2(-m[5],m[8]);
+				ry = MathAsin(m[2]);
+				rz = MathAtan2(-m[1],m[0]);
+			}
 		}
-		
-		float[] r = { aX * M_RADTODEG, aY * M_RADTODEG, aZ * M_RADTODEG };
+		float[] r = {rx * M_RADTODEG, ry * M_RADTODEG, rz * M_RADTODEG};
 		return r;
 	}
 	
@@ -158,27 +166,29 @@ class Matrix : ILocalSave, IGlobalSave, IStringConversion {
 	}
 	
 	void setRow(int rowIndex, float[] row) {
-		m[3*rowIndex] = row[0];
-		m[3*rowIndex+1] = row[1];
-		m[3*rowIndex+2] = row[2];
+		int r = 3*rowIndex;
+		m[r] = row[0];
+		m[r+1] = row[1];
+		m[r+2] = row[2];
 	}
 	
 	void setCol(int colIndex, float[] col) {
 		m[colIndex] = col[0];
-		m[colIndex+1] = col[1];
-		m[colIndex+2] = col[2];
+		m[colIndex+3] = col[1];
+		m[colIndex+6] = col[2];
 	}
 	
 	void setRow(int rowIndex, Vec3 row) {
-		m[3*rowIndex] = row.x;
-		m[3*rowIndex+1] = row.y;
-		m[3*rowIndex+2] = row.z;
+		int r = 3*rowIndex;
+		m[r] = row.x;
+		m[r+1] = row.y;
+		m[r+2] = row.z;
 	}
 	
 	void setCol(int colIndex, Vec3 col) {
 		m[colIndex] = col.x;
-		m[colIndex+1] = col.y;
-		m[colIndex+2] = col.z;
+		m[colIndex+3] = col.y;
+		m[colIndex+6] = col.z;
 	}
 	
 	float get(int row, int col) const {
