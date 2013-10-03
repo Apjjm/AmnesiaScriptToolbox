@@ -2,7 +2,6 @@
     <Project name="AmnesiaScriptToolbox">
         <File name="ISave.lhps" />
         <File name="IStringConversion.lhps" />
-        <File name="UniqueGenerator.lhps" />
         <Folder name="Collection">
             <File name="Collection\StringList.lhps" />
             <File name="Collection\StringQueue.lhps" />
@@ -15,6 +14,15 @@
             <File name="Math\Quaternion.lhps" />
             <File name="Math\Constants.lhps" />
             <File name="Math\FCompare.lhps" />
+        </Folder>
+        <Folder name="Util">
+            <File name="Util\UniqueGenerator.lhps" />
+            <File name="Util\GetPlayerVelocity.lhps" />
+            <File name="Util\GetEntityRotation.lhps" />
+        </Folder>
+        <Folder name="Var">
+            <File name="Var\AmnesiaVar.lhps" />
+            <File name="Var\GlobalInt.lhps" />
         </Folder>
     </Project>
 </NotepadPlus>
