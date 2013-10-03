@@ -10,9 +10,9 @@ Vec3 GetEntityRotation(const string& in ent) {
 	
 	//Determine world axes after entity rotation
 	float AXIS_LENGTH = 100.0f; //Non-unit axes for greater precision
-	AttachPropToProp(ent,ent + "_rx","block_box_unit.ent",AXIS_LENGTH,0,0,0,0,0);
-	AttachPropToProp(ent,ent + "_ry","block_box_unit.ent",0,AXIS_LENGTH,0,0,0,0);
-	AttachPropToProp(ent,ent + "_rz","block_box_unit.ent",0,0,AXIS_LENGTH,0,0,0);
+	AttachPropToProp(ent,ent + "_rx","AST_block_box_unit.ent",AXIS_LENGTH,0,0,0,0,0);
+	AttachPropToProp(ent,ent + "_ry","AST_block_box_unit.ent",0,AXIS_LENGTH,0,0,0,0);
+	AttachPropToProp(ent,ent + "_rz","AST_block_box_unit.ent",0,0,AXIS_LENGTH,0,0,0);
 	Vec3 aX(GetEntityPosX(ent+"_rx"),GetEntityPosY(ent+"_rx"),GetEntityPosZ(ent+"_rx"));
 	Vec3 aY(GetEntityPosX(ent+"_ry"),GetEntityPosY(ent+"_ry"),GetEntityPosZ(ent+"_ry"));
 	Vec3 aZ(GetEntityPosX(ent+"_rz"),GetEntityPosY(ent+"_rz"),GetEntityPosZ(ent+"_rz"));
