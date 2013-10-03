@@ -428,6 +428,10 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 				AddDebugMessage("Err: Vec3::OpIndex() - Index out of bounds",false);
 		}
 	}
+	
+	Vec3 opNeg() const {
+		return Vec3(-x,-y,-z);
+	}
 }
 
 #endif
