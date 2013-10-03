@@ -14,16 +14,14 @@
  * Assigning GlobalInt to primitives is not supported, since global operators
  * for Angelscript can only be implemented in native code (as far as I know).
  **/
-class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave
-{
-    void loadGlobal(const string &in id)
-    {
+class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave {
+    
+	void loadGlobal(const string &in id) {
         // change my value, keep my identity
         SetGlobalVarInt(varName, GetGlobalVarInt(id));
     }
 
-    void saveGlobal(const string &in id) const
-    {
+    void saveGlobal(const string &in id) const {
         // create a copy
         SetGlobalVarInt(id, GetGlobalVarInt(varName));
     }
@@ -32,18 +30,15 @@ class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave
     // Public methods
     /////////////////////////////////////
 
-    GlobalInt(string name)
-    {
+    GlobalInt(string name) {
         setName(name);
     }
 
-    string toString() const
-    {
+    string toString() const {
         return "GlobalInt \"" + varName + "\":" + GetGlobalVarInt(varName);
     }
 
-    void fromString(const string& in asString)
-    {
+    void fromString(const string& in asString) {
         /* Todo: Wait to confirm number parsing in script update instead of rolling own */
     }
 
@@ -53,25 +48,21 @@ class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave
 
     // Equals another GlobalInt
     // Only checks the variable value, does not compare varName
-    bool opEquals(const GlobalInt& in other) const
-    {
+    bool opEquals(const GlobalInt& in other) const {
         return GetGlobalVarInt(varName) == GetGlobalVarInt(other.varName);
     }
 
     // Equals an int
-    bool opEquals(int other) const
-    {
+    bool opEquals(int other) const {
         return GetGlobalVarInt(varName) == other;
     }
 
     // Check varName equals string
-    bool opEquals(const string& in other) const
-    {
+    bool opEquals(const string& in other) const {
         return varName == other;
     }
 
-    bool opEquals(float other) const
-    {
+    bool opEquals(float other) const {
         return fCompare(other, GetGlobalVarInt(varName));
     }
 
@@ -80,22 +71,19 @@ class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave
     /////////////////////////////////////
 
     // Assign GlobalInt value
-    GlobalInt@ opAssign(const GlobalInt& in other)
-    {
+    GlobalInt@ opAssign(const GlobalInt& in other) {
         SetGlobalVarInt(varName, GetGlobalVarInt(other.varName));
         return this;
     }
 
     // Assign int value
-    GlobalInt@ opAssign(int other)
-    {
+    GlobalInt@ opAssign(int other) {
         SetGlobalVarInt(varName, other);
         return this;
     }
 
     // Assign a float value
-    GlobalInt@ opAssign(float other)
-    {
+    GlobalInt@ opAssign(float other) {
         SetGlobalVarInt(varName, int(other));
         return this;
     }
@@ -106,169 +94,143 @@ class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave
 
     // string + GlobalInt
     // return concatenation
-    string opAdd_r(const string& in other) const
-    {
+    string opAdd_r(const string& in other) const {
         return other + GetGlobalVarInt(varName);
     }
 
     // += other GlobalInt
-    GlobalInt@ opAddAssign(const GlobalInt& in other)
-    {
+    GlobalInt@ opAddAssign(const GlobalInt& in other) {
         int x = GetGlobalVarInt(varName) + GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
     // += an int
-    GlobalInt@ opAddAssign(int other)
-    {
+    GlobalInt@ opAddAssign(int other) {
         other += GetGlobalVarInt(varName);
         SetGlobalVarInt(varName, other);
         return this;
     }
 
     // += a float
-    GlobalInt@ opAddAssign(float other)
-    {
+    GlobalInt@ opAddAssign(float other) {
         int x = GetGlobalVarInt(varName) + int(other);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
     // int - GlobalInt
-    int opSub_r(int other) const
-    {
+    int opSub_r(int other) const {
         return other - GetGlobalVarInt(varName);
     }
 
     // GlobalInt - GlobalInt
-    int opSub(const GlobalInt& in other) const
-    {
+    int opSub(const GlobalInt& in other) const {
         return GetGlobalVarInt(varName) - GetGlobalVarInt(other.varName);
     }
 
     // float - GlobalInt
-    int opSub_r(float other) const
-    {
+    int opSub_r(float other) const {
         return int(other) - GetGlobalVarInt(varName);
     }
 
     // GlobalInt - float
-    int opSub(float other) const
-    {
+    int opSub(float other) const {
         return GetGlobalVarInt(varName) - int(other);
     }
 
     // -= other GlobalInt
-    GlobalInt@ opSubAssign(const GlobalInt& in other)
-    {
+    GlobalInt@ opSubAssign(const GlobalInt& in other) {
         int x = GetGlobalVarInt(varName) - GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
     // -= an int
-    GlobalInt@ opSubAssign(int other)
-    {
+    GlobalInt@ opSubAssign(int other) {
         other = GetGlobalVarInt(varName) - other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
     // -= a float
-    GlobalInt@ opSubAssign(float other)
-    {
+    GlobalInt@ opSubAssign(float other) {
         int x = GetGlobalVarInt(varName) - int(other);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    int opMul_r(int other) const
-    {
+    int opMul_r(int other) const {
         return other * GetGlobalVarInt(varName);
     }
 
-    int opMul(int other) const
-    {
+    int opMul(int other) const {
         return GetGlobalVarInt(varName) * other;
     }
 
-    int opMul_r(float other) const
-    {
+    int opMul_r(float other) const {
         return int(other) * GetGlobalVarInt(varName);
     }
 
-    int opMul(float other) const
-    {
+    int opMul(float other) const {
         return GetGlobalVarInt(varName) * int(other);
     }
 
-    int opMul(const GlobalInt& in other) const
-    {
+    int opMul(const GlobalInt& in other) const {
         return GetGlobalVarInt(varName) * GetGlobalVarInt(other.varName);
     }
 
-    GlobalInt@ opMulAssign(const GlobalInt& in other)
-    {
+    GlobalInt@ opMulAssign(const GlobalInt& in other) {
         int x = GetGlobalVarInt(varName) * GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    GlobalInt@ opMulAssign(int other)
-    {
+    GlobalInt@ opMulAssign(int other) {
         other = GetGlobalVarInt(varName) * other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
-    GlobalInt@ opMulAssign(float other)
-    {
+    GlobalInt@ opMulAssign(float other) {
         int x = GetGlobalVarInt(varName) * other;
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    int opNeg() const
-    {
+    int opNeg() const {
         return -GetGlobalVarInt(varName);
     }
 
-    int opCom() const
-    {
+    int opCom() const {
         return ~GetGlobalVarInt(varName);
     }
 
-    int opPreInc()
-    {
+    int opPreInc() {
         int x = GetGlobalVarInt(varName) + 1;
         SetGlobalVarInt(varName, x);
         return x;
     }
 
-    int opPreDec()
-    {
+    int opPreDec() {
         int x = GetGlobalVarInt(varName) - 1;
         SetGlobalVarInt(varName, x);
         return x;
     }
 
-    int opPostInc()
-    {
+    int opPostInc() {
         int x = GetGlobalVarInt(varName);
         SetGlobalVarInt(varName, x+1);
         return x;
     }
 
-    int opPostDec()
-    {
+    int opPostDec() {
         int x = GetGlobalVarInt(varName);
         SetGlobalVarInt(varName, x-1);
         return x;
     }
 
-    int opCmp(int other) const
-    {
+    int opCmp(int other) const {
         if(GetGlobalVarInt(varName) < other)
             return 1;
         else if(GetGlobalVarInt(varName) > other)
@@ -277,183 +239,151 @@ class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave
             return 0;
     }
 
-    GlobalInt@ opModAssign(int other)
-    {
+    GlobalInt@ opModAssign(int other) {
         other = GetGlobalVarInt(varName) % other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
-    GlobalInt@ opModAssign(const GlobalInt& other)
-    {
+    GlobalInt@ opModAssign(const GlobalInt& other) {
         int x = GetGlobalVarInt(varName) % GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    GlobalInt@ opAndAssign(int other)
-    {
+    GlobalInt@ opAndAssign(int other) {
         other = GetGlobalVarInt(varName) & other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
-    GlobalInt@ opAndAssign(const GlobalInt& other)
-    {
+    GlobalInt@ opAndAssign(const GlobalInt& other) {
         int x = GetGlobalVarInt(varName) & GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    GlobalInt@ opOrAssign(int other)
-    {
+    GlobalInt@ opOrAssign(int other) {
         other = GetGlobalVarInt(varName) | other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
-    GlobalInt@ opOrAssign(const GlobalInt& other)
-    {
+    GlobalInt@ opOrAssign(const GlobalInt& other) {
         int x = GetGlobalVarInt(varName) | GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    GlobalInt@ opXorAssign(int other)
-    {
+    GlobalInt@ opXorAssign(int other) {
         other = GetGlobalVarInt(varName) ^ other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
-    GlobalInt@ opXorAssign(const GlobalInt& other)
-    {
+    GlobalInt@ opXorAssign(const GlobalInt& other) {
         int x = GetGlobalVarInt(varName) ^ GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    GlobalInt@ opShrAssign(int other)
-    {
+    GlobalInt@ opShrAssign(int other) {
         other = GetGlobalVarInt(varName) >> other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
-    GlobalInt@ opShrAssign(const GlobalInt& other)
-    {
+    GlobalInt@ opShrAssign(const GlobalInt& other) {
         int x = GetGlobalVarInt(varName) >> GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    GlobalInt@ opShlAssign(int other)
-    {
+    GlobalInt@ opShlAssign(int other) {
         other = GetGlobalVarInt(varName) << other;
         SetGlobalVarInt(varName, other);
         return this;
     }
 
-    GlobalInt@ opShlAssign(const GlobalInt& other)
-    {
+    GlobalInt@ opShlAssign(const GlobalInt& other) {
         int x = GetGlobalVarInt(varName) << GetGlobalVarInt(other.varName);
         SetGlobalVarInt(varName, x);
         return this;
     }
 
-    int opMod(int other) const
-    {
+    int opMod(int other) const {
         return GetGlobalVarInt(varName) % other;
     }
 
-    int opMod(const GlobalInt& other) const
-    {
+    int opMod(const GlobalInt& other) const {
         return GetGlobalVarInt(varName) % GetGlobalVarInt(other.varName);
     }
 
-    int opMod_r(int other) const
-    {
+    int opMod_r(int other) const {
         return other % GetGlobalVarInt(varName);
     }
 
-    int opAnd(int other) const
-    {
+    int opAnd(int other) const {
         return GetGlobalVarInt(varName) & other;
     }
 
-    int opAnd(const GlobalInt& other) const
-    {
+    int opAnd(const GlobalInt& other) const {
         return GetGlobalVarInt(varName) & GetGlobalVarInt(other.varName);
     }
 
-    int opAnd_r(int other) const
-    {
+    int opAnd_r(int other) const {
         return other & GetGlobalVarInt(varName);
     }
 
-    int opOr(int other) const
-    {
+    int opOr(int other) const {
         return GetGlobalVarInt(varName) | other;
     }
 
-    int opOr(const GlobalInt& other) const
-    {
+    int opOr(const GlobalInt& other) const {
         return GetGlobalVarInt(varName) | GetGlobalVarInt(other.varName);
     }
 
-    int opOr_r(int other) const
-    {
+    int opOr_r(int other) const {
         return other | GetGlobalVarInt(varName);
     }
 
-    int opXor(int other) const
-    {
+    int opXor(int other) const {
         return GetGlobalVarInt(varName) ^ other;
     }
 
-    int opXor(const GlobalInt& other) const
-    {
+    int opXor(const GlobalInt& other) const {
         return GetGlobalVarInt(varName) ^ GetGlobalVarInt(other.varName);
     }
 
-    int opXor_r(int other) const
-    {
+    int opXor_r(int other) const {
         return other ^ GetGlobalVarInt(varName);
     }
 
-    int opShr(int other) const
-    {
+    int opShr(int other) const {
         return GetGlobalVarInt(varName) >> other;
     }
 
-    int opShr(const GlobalInt& other) const
-    {
+    int opShr(const GlobalInt& other) const {
         return GetGlobalVarInt(varName) >> GetGlobalVarInt(other.varName);
     }
 
-    int opShr_r(int other) const
-    {
+    int opShr_r(int other) const {
         return other >> GetGlobalVarInt(varName);
     }
 
-    int opShl(int other) const
-    {
+    int opShl(int other) const {
         return GetGlobalVarInt(varName) << other;
     }
 
-    int opShl(const GlobalInt& other) const
-    {
+    int opShl(const GlobalInt& other) const {
         return GetGlobalVarInt(varName) << GetGlobalVarInt(other.varName);
     }
 
-    int opShl_r(int other) const
-    {
+    int opShl_r(int other) const {
         return other << GetGlobalVarInt(varName);
     }
 }
 
-class GlobalInt32 : GlobalInt
-{
-}
+class GlobalInt32 : GlobalInt { }
 
 #endif // LIB_GLOBALINT_LHPS
