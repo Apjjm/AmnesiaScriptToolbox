@@ -39,7 +39,7 @@ class GlobalInt : IStringConversion, AmnesiaVar, IGlobalSave {
     }
 
     void fromString(const string& in asString) {
-        /* Todo: Wait to confirm number parsing in script update instead of rolling own */
+        SetGlobalVarInt(varName,StringToInt(asString));
     }
 
     /////////////////////////////////////
