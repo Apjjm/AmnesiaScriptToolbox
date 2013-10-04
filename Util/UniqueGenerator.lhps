@@ -1,25 +1,21 @@
 #ifndef LIB_UNIQUEGENERATOR_LHPS
 #define LIB_UNIQUEGENERATOR_LHPS
 //////////////////////////////////////////////////
-//UniqueGenerator V1.0 - Apjjm
-//
 //Basic global unique number/string generator
 //////////////////////////////////////////////////
-class UniqueGenerator {
 
-	int generateInt() {
-		AddGlobalVarInt("{UniqueGenerator}_UID",1);
-		return GetLocalVarInt("{UniqueGenerator}_UID");
-	}
-	
-	string generateString() {
-		AddGlobalVarInt("{UniqueGenerator}_UID",1);
-		return "UID@" + GetLocalVarInt("{UniqueGenerator}_UID");
-	}
-	
-	void reset() {
-		SetGlobalVarInt("{UniqueGenerator}_UID",0);
-	}
+int GenerateUniqueInt() {
+	AddGlobalVarInt("{UniqueGenerator}_UID",1);
+	return GetLocalVarInt("{UniqueGenerator}_UID");
 }
- 
+	
+string GenerateUniqueString() {
+	AddGlobalVarInt("{UniqueGenerator}_UID",1);
+	return "{#" + GetLocalVarInt("{UniqueGenerator}_UID") + "}";
+}
+	
+void ResetUniqueGenerator() {
+	SetGlobalVarInt("{UniqueGenerator}_UID",0);
+}
+
 #endif
