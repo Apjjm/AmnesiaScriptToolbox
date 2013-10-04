@@ -4,7 +4,7 @@
 #include "../IStringConversion.lhps"
 #include "FCompare.lhps"
 
-#ifdef ASTOOLBOX_USE_MATRIX
+#ifndef ASTOOLBOX_VEC3_NO_MATRIX
 #include "Matrix.lhps"
 #endif
 
@@ -420,7 +420,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	//////////////////////////////////////////////////
 	//Matrix operations - Only if Matrix is already defined
 	//////////////////////////////////////////////////
-#ifdef ASTOOLBOX_USE_MATRIX
+#ifndef ASTOOLBOX_VEC3_NO_MATRIX
 	
 	//Compute a dyadic product using input vector
 	Matrix dyadic(const Vec3& in vector) const {
