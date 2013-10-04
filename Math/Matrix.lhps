@@ -1,5 +1,10 @@
-#ifndef LIB_MATRIX4_LHPS
-#define LIB_MATRIX4_LHPS
+#ifndef LIB_MATRIX3_LHPS
+#define LIB_MATRIX3_LHPS
+
+#ifndef ASTOOLBOX_USE_MATRIX
+#define ASTOOLBOX_USE_MATRIX
+#endif
+
 #include "../ISave.lhps"
 #include "../IStringConversion.lhps"
 #include "Constants.lhps"

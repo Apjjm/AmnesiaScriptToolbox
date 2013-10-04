@@ -3,7 +3,10 @@
 #include "../ISave.lhps"
 #include "../IStringConversion.lhps"
 #include "FCompare.lhps"
+
+#ifdef ASTOOLBOX_USE_MATRIX
 #include "Matrix.lhps"
+#endif
 
 //////////////////////////////////////////////////
 //Vec3 V2.0 - Apjjm
@@ -85,16 +88,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	//////////////////////////////////////////////////
 	// Vector arithmetic
 	//////////////////////////////////////////////////
-	
-	//Compute a dyadic product using input vector
-	Matrix dyadic(const Vec3& in vector) const {
-		float[] m = float[](9);
-		m[0]=x*vector.x; m[1]=x*vector.y; m[2]=x*vector.z;
-		m[3]=y*vector.x; m[4]=y*vector.y; m[5]=y*vector.z;
-		m[6]=z*vector.x; m[7]=z*vector.y; m[8]=z*vector.z;
-		return Matrix(m);
-	}
-	
+		
 	float dot(const Vec3& in vector) const {
 		return x * vector.x + y * vector.y + z * vector.z;
 	}
@@ -280,17 +274,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 		z /= float(rhs);
 		return this;		
 	}
-	
-	Vec3@ opMulAssign(const Matrix& in matrix) {
-		float[] m = matrix.toArray();
-		float xn = m[0]*x + m[1]*y + m[2]*z;
-		float yn = m[3]*x + m[4]*y + m[5]*z;
-		z = m[6]*x + m[7]*y + m[8]*z;
-		y = yn;
-		x = xn;
-		return this;
-	}
-	
+		
 	// Math operators
 	Vec3 opAdd(const Vec3 &in rhs) const { 
 		return Vec3(x+rhs.x,y+rhs.y,z+rhs.z);
@@ -330,6 +314,10 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 	
 	Vec3 opSub(const float n) const { 
 		return Vec3(x-n,y-n,z-n); 
+	}
+	
+	Vec3 opNeg() const {
+		return Vec3(-x,-y,-z);
 	}
 	
 	///Multiplication & Dot Product 
@@ -429,9 +417,40 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 		}
 	}
 	
-	Vec3 opNeg() const {
-		return Vec3(-x,-y,-z);
+	//////////////////////////////////////////////////
+	//Matrix operations - Only if Matrix is already defined
+	//////////////////////////////////////////////////
+#ifdef ASTOOLBOX_USE_MATRIX
+	
+	//Compute a dyadic product using input vector
+	Matrix dyadic(const Vec3& in vector) const {
+		float[] m = float[](9);
+		m[0]=x*vector.x; m[1]=x*vector.y; m[2]=x*vector.z;
+		m[3]=y*vector.x; m[4]=y*vector.y; m[5]=y*vector.z;
+		m[6]=z*vector.x; m[7]=z*vector.y; m[8]=z*vector.z;
+		return Matrix(m);
 	}
+	
+	Vec3@ opMulAssign(const Matrix& in matrix) {
+		float[] m = matrix.toArray();
+		float xn = m[0]*x + m[1]*y + m[2]*z;
+		float yn = m[3]*x + m[4]*y + m[5]*z;
+		z = m[6]*x + m[7]*y + m[8]*z;
+		y = yn;
+		x = xn;
+		return this;
+	}
+	
+	Vec3 opMul(const Matrix& in matrix) const {
+		float[] m = matrix.toArray();
+		float xn = m[0]*x + m[1]*y + m[2]*z;
+		float yn = m[3]*x + m[4]*y + m[5]*z;
+		float zn = m[6]*x + m[7]*y + m[8]*z;
+		return Vec3(xn,yn,zn);
+	}
+	
+#endif
+
 }
 
 #endif
