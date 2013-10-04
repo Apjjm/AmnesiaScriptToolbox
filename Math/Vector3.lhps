@@ -440,15 +440,7 @@ class Vec3 : ILocalSave, IGlobalSave, IStringConversion {
 		x = xn;
 		return this;
 	}
-	
-	Vec3 opMul(const Matrix& in matrix) const {
-		float[] m = matrix.toArray();
-		float xn = m[0]*x + m[1]*y + m[2]*z;
-		float yn = m[3]*x + m[4]*y + m[5]*z;
-		float zn = m[6]*x + m[7]*y + m[8]*z;
-		return Vec3(xn,yn,zn);
-	}
-	
+		
 #endif
 
 }
