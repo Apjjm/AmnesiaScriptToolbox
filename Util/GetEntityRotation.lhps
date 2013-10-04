@@ -1,7 +1,7 @@
 #ifndef LIB_GETENTITYROTATION_LHPS
 #define LIB_GETENTITYROTATION_LHPS
-#include "../Math/Vector3.lhps"
 #include "../Math/Matrix.lhps"
+#include "../Math/Vector3.lhps"
 
 //Get the rotation of a prop (Warning: This is quite slow!)
 Vec3 GetEntityRotation(const string& in ent) {
