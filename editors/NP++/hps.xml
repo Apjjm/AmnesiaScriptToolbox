@@ -1524,6 +1524,11 @@
 				<Param name="float afFadeOut" />
 			</Overload>
 		</KeyWord>
+		<KeyWord name="StartInsanityEvent" func="yes">
+			<Overload retVal="void" descr="Starts the specified insanity event.">
+				<Param name="string& asEventName" />
+			</Overload>
+		</KeyWord>
 		<KeyWord name="StartPlayerLookAt" func="yes">
 			<Overload retVal="void" descr="Forces the player to look at a certain entity until StopPlayerLookAt is used.">
 				<Param name="string& asEntityName" />
